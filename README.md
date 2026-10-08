@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-开发服务器默认监听 [http://127.0.0.1:38427](http://127.0.0.1:38427)。`next.config.ts` 已允许本机与 Cursor 预览源，避免客户端脚本无法水合。
+开发服务器就是 [http://localhost:3000](http://localhost:3000)。在项目目录执行上面两条命令后，用 IDE 打开这个地址。
 
 ## 静态页面
 
