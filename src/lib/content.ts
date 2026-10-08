@@ -74,14 +74,20 @@ export const trust = {
 
 export const drivenBench = {
   title: "基于投资实战的专业投资模型测评：DrivenBench",
-  body: "DrivenBench 在真实投资工作流中比较模型的能力、成本与延迟，而不是套用通用榜单。第一版覆盖 11 个模型、55 项能力评测、15 个任务类别。",
-  note: "排名按能力通过率；同分并列。结果随版本与环境变化，仅供比较研究，不构成投资建议。",
+  body: "DrivenBench 在 Driven 内对 11 个模型进行评测，共 55 项基于真实投资工作流与任务的能力评估。排名依据能力通过率，得分相同则并列排名。",
+  note: "结果仅反映测试时的模型版本与条件，可能随时间变化，仅供比较研究参考，不构成投资建议。",
   rows: [
-    { rank: "=1", model: "Claude Sonnet 5", vendor: "Anthropic", score: "93.9%", cost: "$57.69", latency: "30s / 70s" },
-    { rank: "=1", model: "Kimi K3", vendor: "Moonshot AI", score: "93.9%", cost: "$59.42", latency: "59s / 169s" },
-    { rank: "3", model: "Claude Opus 5", vendor: "Anthropic", score: "90.9%", cost: "$160.37", latency: "40s / 90s" },
-    { rank: "4", model: "DeepSeek V4 Pro", vendor: "DeepSeek", score: "89.7%", cost: "$30.64", latency: "24s / 61s" },
-    { rank: "5", model: "Grok 4.6", vendor: "xAI", score: "89.1%", cost: "$73.65", latency: "75s / 158s" },
+    { rank: "=1", model: "Claude Sonnet 5", vendor: "Anthropic", score: "93.9%", passes: "155/165", cost: "$57.69", latency: "30s/70s" },
+    { rank: "=1", model: "Kimi K3", vendor: "Moonshot AI", score: "93.9%", passes: "155/165", cost: "$59.42", latency: "59s/169s" },
+    { rank: "3", model: "Claude Opus 5", vendor: "Anthropic", score: "90.9%", passes: "150/165", cost: "$160.37", latency: "40s/90s" },
+    { rank: "4", model: "DeepSeek V4 Pro", vendor: "DeepSeek", score: "89.7%", passes: "148/165", cost: "$30.64", latency: "24s/61s" },
+    { rank: "5", model: "Grok 4.6", vendor: "xAI", score: "89.1%", passes: "147/165", cost: "$73.65", latency: "75s/158s" },
+    { rank: "6", model: "GLM 5.2", vendor: "Zhipu AI", score: "87.3%", passes: "144/165", cost: "$25.64", latency: "23s/62s" },
+    { rank: "7", model: "GPT-5.6 Sol", vendor: "OpenAI", score: "85.5%", passes: "141/165", cost: "$92.72", latency: "27s/61s" },
+    { rank: "8", model: "Gemini 3.7 Flash", vendor: "Google", score: "81.8%", passes: "135/165", cost: "$13.74", latency: "23s/44s" },
+    { rank: "9", model: "GPT-5.6 Luna", vendor: "OpenAI", score: "79.4%", passes: "131/165", cost: "$3.63", latency: "19s/39s" },
+    { rank: "10", model: "DeepSeek V4 Flash", vendor: "DeepSeek", score: "77.6%", passes: "128/165", cost: "$2.97", latency: "20s/46s" },
+    { rank: "11", model: "GPT-5.6 Terra", vendor: "OpenAI", score: "76.4%", passes: "126/165", cost: "$33.54", latency: "16s/32s" },
   ],
 };
 

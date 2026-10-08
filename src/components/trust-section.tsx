@@ -50,27 +50,51 @@ function DrivenBenchBlock() {
       </div>
 
       <div className="mt-8 overflow-x-auto rounded-2xl border border-foreground/8 bg-background">
-        <table className="min-w-[640px] w-full text-left text-sm">
-          <thead className="border-b border-foreground/8 text-muted-foreground">
+        <table className="min-w-[760px] w-full text-left text-sm">
+          <caption className="sr-only">
+            DrivenBench 各模型的能力得分、能力通过数、基准测试总成本上限，以及延迟中位数与 p90
+          </caption>
+          <thead className="border-b border-foreground/8 text-[11px] tracking-[0.08em] text-muted-foreground uppercase">
             <tr>
-              <th className="px-4 py-3 font-medium">排名</th>
-              <th className="px-4 py-3 font-medium">模型</th>
-              <th className="px-4 py-3 font-medium">能力分</th>
-              <th className="px-4 py-3 font-medium">成本上限</th>
-              <th className="px-4 py-3 font-medium">延迟 中位 / p90</th>
+              <th className="w-14 px-3 py-3 text-center font-medium">排名</th>
+              <th className="px-3 py-3 font-medium">模型</th>
+              <th className="px-3 py-3 text-right font-medium">
+                <span className="md:hidden">得分</span>
+                <span className="hidden md:inline">能力得分</span>
+              </th>
+              <th className="hidden px-3 py-3 text-right font-medium md:table-cell">
+                能力通过数
+              </th>
+              <th className="hidden px-3 py-3 text-right font-medium md:table-cell">
+                成本上限
+              </th>
+              <th className="hidden px-3 py-3 text-right font-medium md:table-cell">
+                延迟中位数 / p90
+              </th>
             </tr>
           </thead>
           <tbody>
             {drivenBench.rows.map((row) => (
               <tr key={row.model} className="border-b border-foreground/6 last:border-0">
-                <td className="px-4 py-3 text-muted-foreground">{row.rank}</td>
-                <td className="px-4 py-3">
-                  <div className="font-medium">{row.model}</div>
+                <td className="px-3 py-3 text-center font-mono text-[13px] font-semibold tabular-nums text-muted-foreground">
+                  {row.rank}
+                </td>
+                <td className="px-3 py-3">
+                  <div className="font-semibold">{row.model}</div>
                   <div className="text-xs text-muted-foreground">{row.vendor}</div>
                 </td>
-                <td className="px-4 py-3">{row.score}</td>
-                <td className="px-4 py-3">{row.cost}</td>
-                <td className="px-4 py-3">{row.latency}</td>
+                <td className="px-3 py-3 text-right font-mono text-[13px] font-medium tabular-nums">
+                  {row.score}
+                </td>
+                <td className="hidden px-3 py-3 text-right font-mono text-[13px] tabular-nums md:table-cell">
+                  {row.passes}
+                </td>
+                <td className="hidden px-3 py-3 text-right font-mono text-[13px] tabular-nums md:table-cell">
+                  {row.cost}
+                </td>
+                <td className="hidden px-3 py-3 text-right font-mono text-[13px] tabular-nums md:table-cell">
+                  {row.latency}
+                </td>
               </tr>
             ))}
           </tbody>
