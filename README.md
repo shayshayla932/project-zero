@@ -11,14 +11,14 @@ npm install
 npm run dev
 ```
 
-开发服务器默认监听 [http://127.0.0.1:43147](http://127.0.0.1:43147)。`next.config.ts` 已允许 `127.0.0.1` 与 `localhost` 作为开发源，避免客户端脚本无法水合。
+开发服务器默认监听 [http://127.0.0.1:43261](http://127.0.0.1:43261)。`next.config.ts` 已允许本机与 Cursor 预览源，避免客户端脚本无法水合。
 
 ```bash
 npm run build
 npm run start
 ```
 
-生产模式请自行指定端口，例如 `npx next start --port 43147`。
+生产模式请自行指定端口，例如 `npx next start --port 43261`。
 
 ## 技术栈
 
