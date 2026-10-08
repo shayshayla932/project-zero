@@ -1,3 +1,4 @@
+import { DisplayTitle, SoftPanel } from "@/components/display";
 import { PersonalizedDemo } from "@/components/demos/personalized-demo";
 import { ProactiveDemo } from "@/components/demos/proactive-demo";
 import { ProfessionalDemo } from "@/components/demos/professional-demo";
@@ -14,38 +15,35 @@ const demos = {
 
 export function ValueSections() {
   return (
-    <section id="product" className="border-t border-foreground/6">
-      <div className="mx-auto max-w-6xl px-5 pt-20 pb-4 sm:px-8 sm:pt-28">
-        <p className="text-[13px] tracking-[0.18em] text-muted-foreground uppercase">
-          {valueIntro.eyebrow}
-        </p>
-        <h2 className="mt-4 max-w-xl text-3xl font-bold tracking-tight text-balance sm:text-4xl">
-          {valueIntro.title}
-        </h2>
+    <section id="product" className="px-4 sm:px-6 lg:px-10">
+      <div className="mx-auto max-w-[1360px] px-2 pt-20 pb-10 sm:px-4 sm:pt-28 lg:px-8">
+        <DisplayTitle className="max-w-[12em]">{valueIntro.title}</DisplayTitle>
       </div>
 
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+      <div className="mx-auto flex max-w-[1360px] flex-col gap-5 px-0 pb-16 sm:gap-6 sm:pb-24">
         {values.map((value, index) => {
           const Demo = demos[value.id];
           const reverse = index % 2 === 1;
 
           return (
-            <article
-              key={value.id}
-              id={value.id}
-              className="grid items-center gap-10 border-b border-foreground/6 py-16 last:border-b-0 sm:py-24 lg:grid-cols-12 lg:gap-14"
-            >
-              <div className={cn("lg:col-span-5", reverse && "lg:order-2")}>
-                <h3 className="text-2xl font-bold tracking-tight text-balance sm:text-[2rem] sm:leading-tight">
-                  {value.title}
-                </h3>
-                <p className="mt-5 max-w-md text-[15px] leading-relaxed text-muted-foreground">
-                  {value.body}
-                </p>
-              </div>
-              <div className={cn("lg:col-span-7", reverse && "lg:order-1")}>
-                <Demo />
-              </div>
+            <article key={value.id} id={value.id}>
+              <SoftPanel className="px-6 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-16">
+                <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
+                  <div className={cn("lg:col-span-5", reverse && "lg:order-2")}>
+                    <h3 className="text-[28px] leading-[1.2] font-medium tracking-[-0.02em] text-balance sm:text-[36px] md:text-[40px]">
+                      {value.title}
+                    </h3>
+                    <p className="mt-5 max-w-md text-base leading-relaxed text-[#4C4C4C] sm:text-lg">
+                      {value.body}
+                    </p>
+                  </div>
+                  <div className={cn("lg:col-span-7", reverse && "lg:order-1")}>
+                    <div className="rounded-[20px] bg-white p-2 sm:p-3">
+                      <Demo />
+                    </div>
+                  </div>
+                </div>
+              </SoftPanel>
             </article>
           );
         })}

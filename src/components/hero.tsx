@@ -1,40 +1,26 @@
-import { buttonVariants } from "@/components/ui/button";
+import { DisplayTitle } from "@/components/display";
 import { hero, navActions, site } from "@/lib/content";
-import { cn } from "@/lib/utils";
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,oklch(0.96_0.02_95),transparent_58%)]"
-      />
-      <div className="relative mx-auto flex min-h-svh max-w-5xl flex-col items-center justify-center px-5 py-24 text-center sm:px-8 sm:py-32">
-        <p className="mb-8 text-[13px] tracking-[0.22em] text-muted-foreground uppercase">
-          {site.name}
-        </p>
-        <h1 className="max-w-4xl text-[2.05rem] leading-[1.18] font-bold tracking-tight text-balance sm:text-5xl sm:leading-[1.12] md:text-[3.4rem]">
+      <div className="relative mx-auto flex min-h-[88svh] max-w-[1360px] flex-col items-center justify-center px-6 py-28 text-center sm:px-10 sm:py-32 lg:px-16">
+        <DisplayTitle as="h1" className="max-w-[16em] md:text-[64px]">
           {hero.slogan}
-        </h1>
-        <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+        </DisplayTitle>
+        <p className="mt-7 max-w-[580px] text-lg leading-relaxed text-[#4C4C4C] sm:text-xl">
           {hero.support}
         </p>
-        <div className="mt-12 flex flex-col items-center gap-3 sm:flex-row">
+        <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
           <a
             href={navActions.primary.href}
-            className={cn(
-              buttonVariants({ size: "lg" }),
-              "h-12 rounded-full px-7 text-[15px]"
-            )}
+            className="inline-flex h-11 items-center rounded-full bg-foreground px-6 text-[15px] font-medium text-background transition-opacity hover:opacity-90 md:h-12 md:px-7 md:text-[17px]"
           >
             {hero.primaryCta}
           </a>
           <a
             href={site.benchUrl}
-            className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "h-12 rounded-full px-7 text-[15px]"
-            )}
+            className="inline-flex h-11 items-center rounded-full bg-foreground/5 px-6 text-[15px] text-foreground transition-colors hover:bg-foreground/10 md:h-12 md:px-7 md:text-[17px]"
           >
             {hero.secondaryCta}
           </a>
