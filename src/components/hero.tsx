@@ -1,10 +1,24 @@
+import Image from "next/image";
+
 import { DisplayTitle } from "@/components/display";
 import { hero, navActions, site } from "@/lib/content";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="relative mx-auto flex min-h-[88svh] max-w-[1360px] flex-col items-center justify-center px-6 py-28 text-center sm:px-10 sm:py-32 lg:px-16">
+    <section className="relative min-h-[88svh] overflow-hidden">
+      <Image
+        src="/hero-bg.png"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-background"
+      />
+      <div className="relative z-10 mx-auto flex min-h-[88svh] max-w-[1360px] flex-col items-center justify-center px-6 py-28 text-center sm:px-10 sm:py-32 lg:px-16">
         <DisplayTitle as="h1" className="max-w-[16em] md:text-[64px]">
           {hero.slogan}
         </DisplayTitle>
