@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --port 38427 --hostname 0.0.0.0",
     "build": "next build",
-    "export:html": "next build",
+    "export:html": "next build && rm -rf static && cp -a out static",
     "start": "next start",
     "lint": "eslint"
   },
