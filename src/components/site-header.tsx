@@ -38,7 +38,7 @@ export function SiteHeader() {
         <div className="hidden md:block">
           <a
             href={site.productUrl}
-            className={cn(buttonVariants({ size: "lg" }), "h-9 px-4")}
+            className={cn(buttonVariants({ size: "lg" }), "h-9 rounded-full px-4")}
           >
             {hero.primaryCta}
           </a>

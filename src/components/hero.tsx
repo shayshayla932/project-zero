@@ -22,7 +22,10 @@ export function Hero() {
         <div className="mt-12 flex flex-col items-center gap-3 sm:flex-row">
           <a
             href={site.productUrl}
-            className={cn(buttonVariants({ size: "lg" }), "h-11 px-6 text-[15px]")}
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "h-12 rounded-full px-7 text-[15px]"
+            )}
           >
             {hero.primaryCta}
           </a>
@@ -30,7 +33,7 @@ export function Hero() {
             href={site.benchUrl}
             className={cn(
               buttonVariants({ variant: "outline", size: "lg" }),
-              "h-11 px-6 text-[15px]"
+              "h-12 rounded-full px-7 text-[15px]"
             )}
           >
             {hero.secondaryCta}

@@ -32,14 +32,13 @@ export function DemoFrame({
         </div>
         <p className="text-[12px] text-white/55">{title}</p>
       </div>
-      <div className="relative min-h-[22rem] p-4 sm:min-h-[24rem] sm:p-5">
-        {children}
-      </div>
+      {children}
       {stages && typeof stage === "number" ? (
         <div className="flex flex-wrap gap-2 border-t border-white/8 px-4 py-3">
           {stages.map((label, index) => (
             <span
               key={label}
+              data-stage-pill={index === stage ? "active" : "idle"}
               className={cn(
                 "rounded-full px-2.5 py-1 text-[11px] tracking-wide transition-colors",
                 index === stage
@@ -56,6 +55,57 @@ export function DemoFrame({
   );
 }
 
+export function Workspace({
+  rail,
+  children,
+  prompt,
+}: {
+  rail?: ReactNode;
+  children: ReactNode;
+  prompt: string;
+}) {
+  return (
+    <div className="flex h-[23.5rem] flex-col">
+      <div className="flex min-h-0 flex-1">
+        {rail ? (
+          <aside className="hidden w-[8.5rem] shrink-0 border-r border-white/8 p-2 sm:block">
+            {rail}
+          </aside>
+        ) : null}
+        <div className="relative min-w-0 flex-1 overflow-hidden">{children}</div>
+      </div>
+      <div className="border-t border-white/8 px-3 py-2.5">
+        <div className="rounded-full bg-white/6 px-3.5 py-2 text-[12px] text-white/38">
+          {prompt}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function RailItem({
+  active,
+  children,
+  muted,
+}: {
+  active?: boolean;
+  children: ReactNode;
+  muted?: boolean;
+}) {
+  return (
+    <div
+      className={cn(
+        "rounded-lg px-2 py-1.5 text-[12px] leading-snug",
+        active && "bg-white/12 text-white",
+        !active && muted && "text-white/30",
+        !active && !muted && "text-white/55"
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
 export function Stage({
   active,
   children,
@@ -68,10 +118,10 @@ export function Stage({
   return (
     <div
       className={cn(
-        "absolute inset-4 transition-all duration-500 sm:inset-5",
+        "absolute inset-0 overflow-auto p-3.5 transition-all duration-500",
         active
           ? "translate-y-0 opacity-100"
-          : "pointer-events-none translate-y-3 opacity-0",
+          : "pointer-events-none translate-y-2 opacity-0",
         className
       )}
     >
