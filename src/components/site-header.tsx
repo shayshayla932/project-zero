@@ -32,10 +32,10 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,backdrop-filter,border-color] duration-500",
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter] duration-500",
         scrolled
-          ? "border-foreground/6 bg-background/65 backdrop-blur-xl supports-backdrop-filter:bg-background/50"
-          : "border-transparent bg-transparent"
+          ? "bg-background/65 backdrop-blur-xl supports-backdrop-filter:bg-background/50"
+          : "bg-transparent"
       )}
     >
       <div className="relative flex h-16 items-center justify-between px-5 sm:px-8">
