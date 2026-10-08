@@ -24,19 +24,40 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(readScrollY() > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    document.addEventListener("scroll", onScroll, { passive: true });
+    const apply = (next: boolean) => setScrolled(next);
+    const fromOffset = () => apply(readScrollY() > 8);
+
+    fromOffset();
+    window.addEventListener("scroll", fromOffset, { passive: true });
+    document.addEventListener("scroll", fromOffset, { passive: true, capture: true });
+
+    const sentinel = document.getElementById("nav-frost-sentinel");
+    const observer =
+      sentinel &&
+      new IntersectionObserver(
+        ([entry]) => apply(!entry.isIntersecting || readScrollY() > 8),
+        { threshold: 1 }
+      );
+    if (sentinel && observer) observer.observe(sentinel);
+
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      document.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", fromOffset);
+      document.removeEventListener("scroll", fromOffset, true);
+      observer?.disconnect();
     };
   }, []);
 
   return (
-    <header className={cn("site-header", scrolled && "is-scrolled")}>
-      <div className="site-header-bar">
+    <header
+      className={cn("site-header", scrolled && "is-scrolled")}
+      data-scrolled={scrolled ? "true" : "false"}
+    >
+      <div
+        className={cn(
+          "site-header-bar",
+          scrolled && "bg-white/70 backdrop-blur-xl backdrop-saturate-150"
+        )}
+      >
         <div className="relative flex h-16 items-center justify-between px-5 sm:px-8">
           <a
             href="#top"
