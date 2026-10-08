@@ -23,7 +23,8 @@ export const navActions = {
 } as const;
 
 export const hero = {
-  slogan: "擅长期权交易的投资 Agent 由实时行情数据驱动",
+  line1: "擅长期权交易的投资 Agent",
+  line2: "由实时行情数据驱动",
   support: "实时、专业、主动、个性化的投资 Agent，帮你把交易落实",
   primaryCta: "开始使用",
   secondaryCta: "查看 DrivenBench",

@@ -1,28 +1,28 @@
-import Image from "next/image";
-
-import { DisplayTitle } from "@/components/display";
 import { hero, navActions, site } from "@/lib/content";
 
 export function Hero() {
   return (
-    <section className="relative min-h-[88svh] overflow-hidden">
-      <Image
-        src="/hero-bg.png"
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-background"
-      />
-      <div className="relative z-10 mx-auto flex min-h-[88svh] max-w-[1360px] flex-col items-center justify-center px-6 py-28 text-center sm:px-10 sm:py-32 lg:px-16">
-        <DisplayTitle as="h1" className="max-w-[16em] md:text-[64px]">
-          {hero.slogan}
-        </DisplayTitle>
-        <p className="mt-7 max-w-[580px] text-lg leading-relaxed text-[#4C4C4C] sm:text-xl">
+    <section className="relative isolate min-h-svh overflow-hidden">
+      <div aria-hidden className="absolute inset-0">
+        <div className="hero-wash absolute inset-0" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/hero-bg.webp"
+          alt=""
+          width={3344}
+          height={1882}
+          className="absolute inset-0 size-full object-cover object-center opacity-50 mix-blend-overlay"
+        />
+        <div className="hero-grain absolute inset-0" />
+      </div>
+
+      <div className="relative z-10 mx-auto flex min-h-svh w-full flex-col items-center justify-center px-6 pt-28 pb-20 text-center sm:px-12 lg:px-20">
+        <h1 className="font-serif text-[clamp(2.75rem,6.2vw,5rem)] leading-[1.08] font-normal tracking-[-0.02em]">
+          {hero.line1}
+          <br />
+          {hero.line2}
+        </h1>
+        <p className="mt-8 max-w-[36rem] text-lg leading-relaxed text-[#4C4C4C] sm:text-xl">
           {hero.support}
         </p>
         <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
@@ -34,7 +34,7 @@ export function Hero() {
           </a>
           <a
             href={site.benchUrl}
-            className="inline-flex h-11 items-center rounded-full bg-foreground/5 px-6 text-[15px] text-foreground transition-colors hover:bg-foreground/10 md:h-12 md:px-7 md:text-[17px]"
+            className="inline-flex h-11 items-center rounded-full bg-white/55 px-6 text-[15px] text-foreground backdrop-blur-sm transition-colors hover:bg-white/80 md:h-12 md:px-7 md:text-[17px]"
           >
             {hero.secondaryCta}
           </a>
