@@ -37,33 +37,27 @@ export const valueIntro = {
 export const values = [
   {
     id: "realtime",
-    eyebrow: "Real-time：Data",
     title: "精通期权交易，更是投资多面手。",
     body: "内置美、港、A 市场股票、ETF 、期货实时行情，更有丰富的期权链数据和衍生指标",
     stages: ["点击提示", "获取与计算", "数据引用", "期权 Space"],
   },
   {
     id: "professional",
-    eyebrow: "Professional：Skill Store、MCP",
     title: "从专业分析到交易执行，不纸上谈兵。",
     body: "专业基金经理创建的 skill 提升分析能力，连接你的持仓券商把交易落实。",
     stages: ["持仓诊断", "调仓建议", "添加券商 MCP", "自然语言下单"],
   },
   {
     id: "proactive",
-    eyebrow: "Proactive：Schedule、Event Trigger、Telegram Channel",
     title: "自动帮你干活，投资省心省力。",
     body: "利用 schedule task 和大事件信号等触发条件，将 AI 自动化能力发挥到极致。",
     stages: ["创建日程", "产出报告 H5", "Telegram 通知"],
-    comingSoon: ["Event Trigger"],
   },
   {
     id: "personalized",
-    eyebrow: "Personalized：Memory、Playbook、Suggest tool",
     title: "懂你。",
     body: "长期记忆，越用越懂你，按照既定 Playbook 执行且逐渐进化。",
     stages: ["记忆召回", "Playbook 执行", "进化建议"],
-    comingSoon: ["Suggest tool"],
   },
 ] as const;
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { ComingSoonBadge } from "@/components/coming-soon-badge";
 import { DemoFrame, RailItem, Stage, Workspace } from "@/components/demos/demo-frame";
 import { values } from "@/lib/content";
 import { usePrefersReducedMotion, useStagedPlayback } from "@/lib/use-demo-playback";
@@ -56,15 +55,11 @@ export function PersonalizedDemo() {
           </Stage>
 
           <Stage active={current === 2}>
-            <div className="flex items-center gap-2">
-              <p className="text-[13px] text-white">进化中的建议</p>
-              <ComingSoonBadge className="border-white/15 bg-white/5 text-white/55" />
-            </div>
-            <p className="mt-1 text-[12px] text-white/40">Suggest tool · 待开发</p>
+            <p className="text-[13px] text-white">进化中的建议</p>
             <div className="mt-4 rounded-xl border border-dashed border-white/15 bg-white/4 p-4">
               <p className="text-[13px] leading-relaxed text-white/80">
-                你连续四周在财报前停止备兑，胜率高于默认规则。Suggest tool
-                上线后，会把这条经验写回 Playbook，而不是每次重新解释。
+                你连续四周在财报前停止备兑，胜率高于默认规则。这条经验可以写回
+                Playbook，而不是每次重新解释。
               </p>
               <p className="mt-3 text-[12px] text-white/40">
                 建议仍由你确认。记忆会留下，规则会进化。

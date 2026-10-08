@@ -1,6 +1,5 @@
 "use client";
 
-import { ComingSoonBadge } from "@/components/coming-soon-badge";
 import { DemoFrame, RailItem, Stage, Workspace } from "@/components/demos/demo-frame";
 import { values } from "@/lib/content";
 import { usePrefersReducedMotion, useStagedPlayback } from "@/lib/use-demo-playback";
@@ -37,15 +36,12 @@ export function ProactiveDemo() {
               NVDA 财报发布后，自动出一份简报，发到我的 Telegram。
             </div>
             <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-3">
-              <div className="flex flex-wrap items-center gap-2">
-                <p className="text-[13px] text-white">已创建日程</p>
-                <ComingSoonBadge className="border-white/15 bg-white/5 text-white/55" />
-              </div>
+              <p className="text-[13px] text-white">已创建日程</p>
               <p className="mt-2 text-[12px] text-white/60">
-                触发条件：NVDA 财报事件 · Event Trigger
+                触发条件：NVDA 财报日历
               </p>
               <p className="mt-1 text-[12px] leading-relaxed text-white/40">
-                事件触发能力标记为待开发，当前先按财报日历写入 Schedule。
+                按财报日历写入 Schedule，财报发布后自动产出简报。
               </p>
             </div>
           </Stage>
