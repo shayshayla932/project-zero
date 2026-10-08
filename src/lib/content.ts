@@ -64,8 +64,10 @@ export const values = [
 ] as const;
 
 export const trust = {
-  eyebrow: "值得信赖",
+  label: "值得信赖",
   title: "用实战标准衡量，而不是用话术。",
+  support: "DrivenBench 在真实投资工作流中比较模型的能力、成本与延迟，而不是套用通用榜单。",
+  cta: { href: "https://driven.ai/drivenbench", label: "打开完整榜单" },
 };
 
 export const drivenBench = {

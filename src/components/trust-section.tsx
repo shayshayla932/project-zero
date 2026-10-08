@@ -1,12 +1,17 @@
-import { DisplayTitle, SoftPanel } from "@/components/display";
+import { SectionLead, SoftPanel } from "@/components/display";
 import { ModelLogo } from "@/components/model-logo";
-import { drivenBench, press, privacy, site, testimonials, trust } from "@/lib/content";
+import { drivenBench, press, privacy, testimonials, trust } from "@/lib/content";
 
 export function TrustSection() {
   return (
     <section id="trust" className="px-4 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-[1360px] px-2 pt-8 pb-24 sm:px-4 sm:pt-12 sm:pb-32 lg:px-8">
-        <DisplayTitle className="max-w-[12em]">{trust.title}</DisplayTitle>
+        <SectionLead
+          label={trust.label}
+          title={trust.title}
+          support={trust.support}
+          cta={trust.cta}
+        />
 
         <div className="mt-14 space-y-16 sm:mt-20 sm:space-y-24">
           <DrivenBenchBlock />
@@ -22,21 +27,13 @@ export function TrustSection() {
 function DrivenBenchBlock() {
   return (
     <div id="drivenbench" className="scroll-mt-24">
-      <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-        <div className="max-w-2xl">
-          <h3 className="text-[28px] leading-[1.2] font-medium tracking-[-0.02em] sm:text-[36px]">
-            {drivenBench.title}
-          </h3>
-          <p className="mt-4 max-w-[580px] text-base leading-relaxed text-[#4C4C4C] sm:text-lg">
-            {drivenBench.body}
-          </p>
-        </div>
-        <a
-          href={site.benchUrl}
-          className="inline-flex h-11 items-center rounded-full bg-foreground/5 px-5 text-[15px] text-foreground transition-colors hover:bg-foreground/10"
-        >
-          打开完整榜单
-        </a>
+      <div className="max-w-2xl">
+        <h3 className="text-[28px] leading-[1.2] font-medium tracking-[-0.02em] sm:text-[36px]">
+          {drivenBench.title}
+        </h3>
+        <p className="mt-4 max-w-[580px] text-base leading-relaxed text-[#4C4C4C] sm:text-lg">
+          {drivenBench.body}
+        </p>
       </div>
 
       <SoftPanel className="mt-8 overflow-x-auto">
