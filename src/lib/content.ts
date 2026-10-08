@@ -118,19 +118,8 @@ export const testimonials = {
       avatar: "/user-voice/discord-avatar.webp",
       href: "https://discord.com/channels/1404776438036434944/1443190350582911027/1497112045563281509",
       platform: "discord",
-      span: "lg:col-span-7 lg:row-span-2",
       quote:
         "I'm extremely impressed by the capabilities of this model. The skills within it are extremely powerful. This is the INTC model that I previously built. After the performance was disclosed, the model immediately updated the financial data and made comments based on the previously provided information. The understanding ability of context is extremely strong.",
-    },
-    {
-      name: "Black",
-      handle: "@Blk1115",
-      avatar: "/user-voice/user-avatar-blk.webp",
-      href: "https://x.com/Blk1115/status/2062068684303327437",
-      platform: "x",
-      span: "lg:col-span-5",
-      quote:
-        "To be honest, I've always been a bit reluctant to try out new AI startups, because I always feel like their quality definitely can't match the big established ones. But @Driven is genuinely pretty good. I've used it and compared it multiple times with the AI I'm currently using for investment research, and it really surprised me a bit.",
     },
     {
       name: "kafkaworld",
@@ -138,29 +127,8 @@ export const testimonials = {
       avatar: "/user-voice/user-avatar-kafkaworld.webp",
       href: "https://x.com/kafkaworld14/status/2061446816219177166",
       platform: "x",
-      span: "lg:col-span-5",
       quote:
         "@Driven is absolutely stunning! This product defines what a true investment-savvy AI agent should be",
-    },
-    {
-      name: "卫斯理",
-      handle: "@imwsl90",
-      avatar: "/user-voice/user-avatar-Wesley.webp",
-      href: "https://x.com/imwsl90/status/2062008719098175678",
-      platform: "x",
-      span: "md:col-span-2 lg:col-span-4",
-      quote:
-        "After reading the original post, I feel this is the right way to approach vertical AI products. The product concept behind @Driven is spot-on: it's not just another financial chatbot, but genuinely equips you with an AI investment team.",
-    },
-    {
-      name: "qinbafrank",
-      handle: "@qinbafrank",
-      avatar: "/user-voice/user-avatar-frank.webp",
-      href: "https://x.com/qinbafrank/status/2080237471552680314",
-      platform: "x",
-      span: "md:col-span-2 lg:col-span-4",
-      quote:
-        "Recently used @Driven to help research several Hong Kong stock companies, and the experience was pretty good. The data provided is more accurate than that from general models, and many features are quite interesting. Today, they also updated this Skill Store, where you can install various skills uploaded by other users.",
     },
     {
       name: "Wenz",
@@ -168,29 +136,26 @@ export const testimonials = {
       avatar: "/user-voice/user-avatar-Wenz.webp",
       href: "https://x.com/wenzherunze/status/2062023476412887113",
       platform: "x",
-      span: "md:col-span-2 lg:col-span-4",
       quote:
         "You should try @Driven. Investing in U.S. and A-share stocks has gotten increasingly complicated. I'm always switching between tabs to research, monitor signals, and manage my portfolio. Driven seems like it could make the whole process much easier.",
     },
     {
-      name: "Bally_AgenticAI",
-      handle: "@bally_kehal",
-      avatar: "/user-voice/user-avatar-Bally.webp",
-      href: "https://x.com/bally_kehal/status/2080338220114686409",
+      name: "Black",
+      handle: "@Blk1115",
+      avatar: "/user-voice/user-avatar-blk.webp",
+      href: "https://x.com/Blk1115/status/2062068684303327437",
       platform: "x",
-      span: "lg:col-span-8",
       quote:
-        "This is what maturity looks like in agentic AI. Anyone can ship a prompt library — the hard part is what @Driven did here: reviewed, versioned Skills running on reliable market data. That's the line between a demo and infrastructure you can trust with real money.",
+        "To be honest, I've always been a bit reluctant to try out new AI startups, because I always feel like their quality definitely can't match the big established ones. But @Driven is genuinely pretty good. I've used it and compared it multiple times with the AI I'm currently using for investment research, and it really surprised me a bit.",
     },
     {
-      name: "Sea",
-      handle: "@Sea_Bitcoin",
-      avatar: "/user-voice/user-avatar-Sea.webp",
-      href: "https://x.com/Sea_Bitcoin/status/2061765499508384126",
+      name: "卫斯理",
+      handle: "@imwsl90",
+      avatar: "/user-voice/user-avatar-Wesley.webp",
+      href: "https://x.com/imwsl90/status/2062008719098175678",
       platform: "x",
-      span: "lg:col-span-4",
       quote:
-        "Whether you're investing in U.S. stocks, A-shares, funds, or other products, you can use @Driven to let smart AI assist you with market research, signal monitoring, strategy building, and portfolio management. You can even execute orders through conversation.",
+        "After reading the original post, I feel this is the right way to approach vertical AI products. The product concept behind @Driven is spot-on: it's not just another financial chatbot, but genuinely equips you with an AI investment team.",
     },
     {
       name: "Ash Davidson",
@@ -198,9 +163,26 @@ export const testimonials = {
       avatar: "/user-voice/user-avatar-Ash.webp",
       href: "https://x.com/AshDavidsonUK/status/2061458262009020803",
       platform: "x",
-      span: "md:col-span-3 lg:col-span-6",
       quote:
         "Been using @Driven the last few weeks. With full data sets from FMP, you can build your own little finance tools. Helps with research, finding information and even automation. Very impressive for finance.",
+    },
+    {
+      name: "Bally_AgenticAI",
+      handle: "@bally_kehal",
+      avatar: "/user-voice/user-avatar-Bally.webp",
+      href: "https://x.com/bally_kehal/status/2080338220114686409",
+      platform: "x",
+      quote:
+        "This is what maturity looks like in agentic AI. Anyone can ship a prompt library — the hard part is what @Driven did here: reviewed, versioned Skills running on reliable market data. That's the line between a demo and infrastructure you can trust with real money.",
+    },
+    {
+      name: "qinbafrank",
+      handle: "@qinbafrank",
+      avatar: "/user-voice/user-avatar-frank.webp",
+      href: "https://x.com/qinbafrank/status/2080237471552680314",
+      platform: "x",
+      quote:
+        "Recently used @Driven to help research several Hong Kong stock companies, and the experience was pretty good. The data provided is more accurate than that from general models, and many features are quite interesting. Today, they also updated this Skill Store, where you can install various skills uploaded by other users.",
     },
     {
       name: "Lucy L.",
@@ -208,9 +190,17 @@ export const testimonials = {
       avatar: "/user-voice/user-avatar-Lucy.webp",
       href: "https://x.com/LucyBuilding/status/2080246212868096183",
       platform: "x",
-      span: "md:col-span-3 lg:col-span-6",
       quote:
         "I've been using @Driven ai for a while now. It integrates multiple models, but compared to regular AI tools, it places more emphasis on investment research scenarios. In daily use, you can rely on it to organize company information, financial reports, valuations, and portfolio-related details, cutting down on the need to switch back and forth between different tools.",
+    },
+    {
+      name: "Sea",
+      handle: "@Sea_Bitcoin",
+      avatar: "/user-voice/user-avatar-Sea.webp",
+      href: "https://x.com/Sea_Bitcoin/status/2061765499508384126",
+      platform: "x",
+      quote:
+        "Whether you're investing in U.S. stocks, A-shares, funds, or other products, you can use @Driven to let smart AI assist you with market research, signal monitoring, strategy building, and portfolio management. You can even execute orders through conversation.",
     },
   ],
 } as const;

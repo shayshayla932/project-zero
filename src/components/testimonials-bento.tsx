@@ -1,5 +1,4 @@
 import { testimonials } from "@/lib/content";
-import { cn } from "@/lib/utils";
 
 export function TestimonialsBento() {
   return (
@@ -8,17 +7,14 @@ export function TestimonialsBento() {
         {testimonials.title}
       </h3>
       <p className="mt-3 text-base text-[#4C4C4C] sm:text-lg">{testimonials.subtitle}</p>
-      <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-6 lg:grid-cols-12">
+      <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {testimonials.items.map((item) => (
           <a
             key={item.handle}
             href={item.href}
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(
-              "group flex flex-col rounded-[20px] bg-[#F7F7F8] p-5 transition-colors hover:bg-[#f2f2f3] sm:p-6",
-              item.span
-            )}
+            className="group flex h-full flex-col rounded-[20px] bg-[#F7F7F8] p-5 transition-colors hover:bg-[#f2f2f3] sm:p-6"
           >
             <div className="flex items-center gap-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
