@@ -1,6 +1,7 @@
 import { SectionLead, SoftPanel } from "@/components/display";
 import { ModelLogo } from "@/components/model-logo";
-import { drivenBench, press, privacy, testimonials, trust } from "@/lib/content";
+import { TestimonialsBento } from "@/components/testimonials-bento";
+import { drivenBench, press, privacy, trust } from "@/lib/content";
 
 export function TrustSection() {
   return (
@@ -16,7 +17,7 @@ export function TrustSection() {
         <div className="mt-14 space-y-16 sm:mt-20 sm:space-y-24">
           <DrivenBenchBlock />
           <PrivacyBlock />
-          <TestimonialsBlock />
+          <TestimonialsBento />
           <PressBlock />
         </div>
       </div>
@@ -115,30 +116,6 @@ function PrivacyBlock() {
               {point.title}
             </h4>
             <p className="mt-5 text-[15px] leading-relaxed text-[#4C4C4C]">{point.body}</p>
-          </SoftPanel>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function TestimonialsBlock() {
-  return (
-    <div>
-      <h3 className="text-[28px] leading-[1.2] font-medium tracking-[-0.02em] sm:text-[36px]">
-        {testimonials.title}
-      </h3>
-      <p className="mt-3 text-base text-[#4C4C4C] sm:text-lg">{testimonials.subtitle}</p>
-      <div className="mt-8 grid gap-4 md:grid-cols-2">
-        {testimonials.items.map((item) => (
-          <SoftPanel key={item.handle} className="flex flex-col justify-between p-7 sm:p-8">
-            <p className="text-lg leading-snug font-medium tracking-[-0.015em] text-balance sm:text-xl">
-              “{item.quote}”
-            </p>
-            <p className="mt-8 text-sm text-[#4C4C4C]">
-              {item.name}
-              <span className="text-foreground/35"> · {item.handle}</span>
-            </p>
           </SoftPanel>
         ))}
       </div>

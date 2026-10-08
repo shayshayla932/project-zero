@@ -109,46 +109,111 @@ export const privacy = {
 };
 
 export const testimonials = {
-  title: "用户声音",
-  subtitle: "真实对话，而不是轮播口号",
+  title: "听听用户怎么说",
+  subtitle: "真实的对话 · 真实的策略",
   items: [
     {
       name: "Jens Capital",
       handle: "@JensCapital",
+      avatar: "/user-voice/discord-avatar.webp",
+      href: "https://discord.com/channels/1404776438036434944/1443190350582911027/1497112045563281509",
+      platform: "discord",
+      span: "lg:col-span-7 lg:row-span-2",
       quote:
-        "模型的能力让我非常惊讶，里面的 Skill 非常强。这是我之前建的 INTC 模型。业绩披露后，它立刻更新财务数据，并基于先前信息作出点评。上下文理解能力极强。",
+        "I'm extremely impressed by the capabilities of this model. The skills within it are extremely powerful. This is the INTC model that I previously built. After the performance was disclosed, the model immediately updated the financial data and made comments based on the previously provided information. The understanding ability of context is extremely strong.",
     },
     {
       name: "Black",
       handle: "@Blk1115",
+      avatar: "/user-voice/user-avatar-blk.webp",
+      href: "https://x.com/Blk1115/status/2062068684303327437",
+      platform: "x",
+      span: "lg:col-span-5",
       quote:
-        "说实话，我一直不太愿意尝试新的 AI 创业公司，总觉得质量肯定比不上大厂。但 Driven 确实不错。我和正在使用的投研 AI 对比过多次，还真有点惊喜。",
+        "To be honest, I've always been a bit reluctant to try out new AI startups, because I always feel like their quality definitely can't match the big established ones. But @Driven is genuinely pretty good. I've used it and compared it multiple times with the AI I'm currently using for investment research, and it really surprised me a bit.",
     },
     {
       name: "kafkaworld",
       handle: "@kafkaworld14",
-      quote: "Driven 太惊艳了。这个产品定义了什么才是真正懂投资的 AI Agent。",
+      avatar: "/user-voice/user-avatar-kafkaworld.webp",
+      href: "https://x.com/kafkaworld14/status/2061446816219177166",
+      platform: "x",
+      span: "lg:col-span-5",
+      quote:
+        "@Driven is absolutely stunning! This product defines what a true investment-savvy AI agent should be",
     },
     {
       name: "卫斯理",
       handle: "@imwsl90",
+      avatar: "/user-voice/user-avatar-Wesley.webp",
+      href: "https://x.com/imwsl90/status/2062008719098175678",
+      platform: "x",
+      span: "md:col-span-2 lg:col-span-4",
       quote:
-        "这才是垂直 AI 该有的做法。Driven 的产品理念非常准：它不是又一个金融聊天机器人，而是真正给你配备一支 AI 投资团队。",
+        "After reading the original post, I feel this is the right way to approach vertical AI products. The product concept behind @Driven is spot-on: it's not just another financial chatbot, but genuinely equips you with an AI investment team.",
     },
     {
       name: "qinbafrank",
       handle: "@qinbafrank",
+      avatar: "/user-voice/user-avatar-frank.webp",
+      href: "https://x.com/qinbafrank/status/2080237471552680314",
+      platform: "x",
+      span: "md:col-span-2 lg:col-span-4",
       quote:
-        "最近用 Driven 研究了几家港股公司，体验不错。数据比通用模型更准，不少功能也很有意思。他们还更新了 Skill Store，可以安装其他用户上传的各种 Skill。",
+        "Recently used @Driven to help research several Hong Kong stock companies, and the experience was pretty good. The data provided is more accurate than that from general models, and many features are quite interesting. Today, they also updated this Skill Store, where you can install various skills uploaded by other users.",
+    },
+    {
+      name: "Wenz",
+      handle: "@wenzherunze",
+      avatar: "/user-voice/user-avatar-Wenz.webp",
+      href: "https://x.com/wenzherunze/status/2062023476412887113",
+      platform: "x",
+      span: "md:col-span-2 lg:col-span-4",
+      quote:
+        "You should try @Driven. Investing in U.S. and A-share stocks has gotten increasingly complicated. I'm always switching between tabs to research, monitor signals, and manage my portfolio. Driven seems like it could make the whole process much easier.",
     },
     {
       name: "Bally_AgenticAI",
       handle: "@bally_kehal",
+      avatar: "/user-voice/user-avatar-Bally.webp",
+      href: "https://x.com/bally_kehal/status/2080338220114686409",
+      platform: "x",
+      span: "lg:col-span-8",
       quote:
-        "这才是 agentic AI 该有的成熟度。谁都能做一堆 prompt 库——难的是 Driven 做的这些：经过审阅、带版本的 Skill，跑在可靠的行情数据上。这才是 demo 和能托付真金白银的基础设施之间的分界线。",
+        "This is what maturity looks like in agentic AI. Anyone can ship a prompt library — the hard part is what @Driven did here: reviewed, versioned Skills running on reliable market data. That's the line between a demo and infrastructure you can trust with real money.",
+    },
+    {
+      name: "Sea",
+      handle: "@Sea_Bitcoin",
+      avatar: "/user-voice/user-avatar-Sea.webp",
+      href: "https://x.com/Sea_Bitcoin/status/2061765499508384126",
+      platform: "x",
+      span: "lg:col-span-4",
+      quote:
+        "Whether you're investing in U.S. stocks, A-shares, funds, or other products, you can use @Driven to let smart AI assist you with market research, signal monitoring, strategy building, and portfolio management. You can even execute orders through conversation.",
+    },
+    {
+      name: "Ash Davidson",
+      handle: "@AshDavidsonUK",
+      avatar: "/user-voice/user-avatar-Ash.webp",
+      href: "https://x.com/AshDavidsonUK/status/2061458262009020803",
+      platform: "x",
+      span: "md:col-span-3 lg:col-span-6",
+      quote:
+        "Been using @Driven the last few weeks. With full data sets from FMP, you can build your own little finance tools. Helps with research, finding information and even automation. Very impressive for finance.",
+    },
+    {
+      name: "Lucy L.",
+      handle: "@LucyBuilding",
+      avatar: "/user-voice/user-avatar-Lucy.webp",
+      href: "https://x.com/LucyBuilding/status/2080246212868096183",
+      platform: "x",
+      span: "md:col-span-3 lg:col-span-6",
+      quote:
+        "I've been using @Driven ai for a while now. It integrates multiple models, but compared to regular AI tools, it places more emphasis on investment research scenarios. In daily use, you can rely on it to organize company information, financial reports, valuations, and portfolio-related details, cutting down on the need to switch back and forth between different tools.",
     },
   ],
-};
+} as const;
 
 export const press = {
   title: "媒体报道",
