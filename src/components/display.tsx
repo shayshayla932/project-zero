@@ -31,6 +31,6 @@ export function SoftPanel({
   className?: string;
 }) {
   return (
-    <div className={cn("rounded-[28px] bg-panel", className)}>{children}</div>
+    <div className={cn("rounded-[28px] bg-[#F7F7F8]", className)}>{children}</div>
   );
 }
