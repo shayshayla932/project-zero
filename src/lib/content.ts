@@ -30,8 +30,10 @@ export const hero = {
 };
 
 export const valueIntro = {
-  eyebrow: "产品价值",
+  label: "产品",
   title: "从实时数据，到把交易落实",
+  support: "实时行情、专业 Skill、主动日程与个性化记忆，帮你把分析做成交易。",
+  cta: { href: "#realtime", label: "了解更多" },
 };
 
 export const values = [

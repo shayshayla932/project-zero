@@ -1,4 +1,4 @@
-import { DisplayTitle, SoftPanel } from "@/components/display";
+import { SectionLead, SoftPanel } from "@/components/display";
 import { PersonalizedDemo } from "@/components/demos/personalized-demo";
 import { ProactiveDemo } from "@/components/demos/proactive-demo";
 import { ProfessionalDemo } from "@/components/demos/professional-demo";
@@ -16,8 +16,13 @@ const demos = {
 export function ValueSections() {
   return (
     <section id="product" className="px-4 sm:px-6 lg:px-10">
-      <div className="mx-auto max-w-[1360px] px-2 pt-20 pb-10 sm:px-4 sm:pt-28 lg:px-8">
-        <DisplayTitle className="max-w-[12em]">{valueIntro.title}</DisplayTitle>
+      <div className="mx-auto max-w-[1360px] px-2 pt-20 pb-12 sm:px-4 sm:pt-28 sm:pb-16 lg:px-8">
+        <SectionLead
+          label={valueIntro.label}
+          title={valueIntro.title}
+          support={valueIntro.support}
+          cta={valueIntro.cta}
+        />
       </div>
 
       <div className="mx-auto flex max-w-[1360px] flex-col gap-5 px-0 pb-16 sm:gap-6 sm:pb-24">
