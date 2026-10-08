@@ -1,5 +1,6 @@
 import { BrandMark } from "@/components/brand-mark";
 import { footer } from "@/lib/content";
+import { publicAsset } from "@/lib/public-asset";
 
 export function SiteFooter() {
   return (
@@ -9,7 +10,7 @@ export function SiteFooter() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             alt="Driven"
-            src="/driven-footer-wordmark.svg"
+            src={publicAsset("/driven-footer-wordmark.svg")}
             width={1387}
             height={358}
             className="block h-auto w-full object-contain object-bottom"

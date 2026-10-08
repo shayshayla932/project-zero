@@ -1,3 +1,5 @@
+import { publicAsset } from "@/lib/public-asset";
+
 export const site = {
   name: "Driven",
   productUrl: "https://driven.ai",
@@ -116,7 +118,7 @@ export const testimonials = {
     {
       name: "Jens Capital",
       handle: "@JensCapital",
-      avatar: "/user-voice/discord-avatar.webp",
+      avatar: publicAsset("/user-voice/discord-avatar.webp"),
       href: "https://discord.com/channels/1404776438036434944/1443190350582911027/1497112045563281509",
       platform: "discord",
       span: "lg:col-span-2",
@@ -126,7 +128,7 @@ export const testimonials = {
     {
       name: "Ash Davidson",
       handle: "@AshDavidsonUK",
-      avatar: "/user-voice/user-avatar-Ash.webp",
+      avatar: publicAsset("/user-voice/user-avatar-Ash.webp"),
       href: "https://x.com/AshDavidsonUK/status/2061458262009020803",
       platform: "x",
       quote:
@@ -135,7 +137,7 @@ export const testimonials = {
     {
       name: "Black",
       handle: "@Blk1115",
-      avatar: "/user-voice/user-avatar-blk.webp",
+      avatar: publicAsset("/user-voice/user-avatar-blk.webp"),
       href: "https://x.com/Blk1115/status/2062068684303327437",
       platform: "x",
       quote:
@@ -144,7 +146,7 @@ export const testimonials = {
     {
       name: "Wenz",
       handle: "@wenzherunze",
-      avatar: "/user-voice/user-avatar-Wenz.webp",
+      avatar: publicAsset("/user-voice/user-avatar-Wenz.webp"),
       href: "https://x.com/wenzherunze/status/2062023476412887113",
       platform: "x",
       quote:
@@ -153,7 +155,7 @@ export const testimonials = {
     {
       name: "卫斯理",
       handle: "@imwsl90",
-      avatar: "/user-voice/user-avatar-Wesley.webp",
+      avatar: publicAsset("/user-voice/user-avatar-Wesley.webp"),
       href: "https://x.com/imwsl90/status/2062008719098175678",
       platform: "x",
       quote:
@@ -162,7 +164,7 @@ export const testimonials = {
     {
       name: "Bally_AgenticAI",
       handle: "@bally_kehal",
-      avatar: "/user-voice/user-avatar-Bally.webp",
+      avatar: publicAsset("/user-voice/user-avatar-Bally.webp"),
       href: "https://x.com/bally_kehal/status/2080338220114686409",
       platform: "x",
       quote:
@@ -171,7 +173,7 @@ export const testimonials = {
     {
       name: "qinbafrank",
       handle: "@qinbafrank",
-      avatar: "/user-voice/user-avatar-frank.webp",
+      avatar: publicAsset("/user-voice/user-avatar-frank.webp"),
       href: "https://x.com/qinbafrank/status/2080237471552680314",
       platform: "x",
       quote:
@@ -180,7 +182,7 @@ export const testimonials = {
     {
       name: "Sea",
       handle: "@Sea_Bitcoin",
-      avatar: "/user-voice/user-avatar-Sea.webp",
+      avatar: publicAsset("/user-voice/user-avatar-Sea.webp"),
       href: "https://x.com/Sea_Bitcoin/status/2061765499508384126",
       platform: "x",
       quote:
@@ -189,7 +191,7 @@ export const testimonials = {
     {
       name: "Lucy L.",
       handle: "@LucyBuilding",
-      avatar: "/user-voice/user-avatar-Lucy.webp",
+      avatar: publicAsset("/user-voice/user-avatar-Lucy.webp"),
       href: "https://x.com/LucyBuilding/status/2080246212868096183",
       platform: "x",
       span: "lg:col-span-2",
@@ -199,7 +201,7 @@ export const testimonials = {
     {
       name: "kafkaworld",
       handle: "@kafkaworld14",
-      avatar: "/user-voice/user-avatar-kafkaworld.webp",
+      avatar: publicAsset("/user-voice/user-avatar-kafkaworld.webp"),
       href: "https://x.com/kafkaworld14/status/2061446816219177166",
       platform: "x",
       quote:

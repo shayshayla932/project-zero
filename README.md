@@ -11,14 +11,21 @@ npm install
 npm run dev
 ```
 
-开发服务器默认监听 [http://127.0.0.1:43261](http://127.0.0.1:43261)。`next.config.ts` 已允许本机与 Cursor 预览源，避免客户端脚本无法水合。
+开发服务器默认监听 [http://127.0.0.1:38427](http://127.0.0.1:38427)。`next.config.ts` 已允许本机与 Cursor 预览源，避免客户端脚本无法水合。
+
+## 静态页面
+
+别人不需要安装 Node，也不用连这台开发机。在项目里执行：
+
+```bash
+npm run export:html
+```
+
+生成的文件在 `out/`。把整个 `out` 文件夹发给对方，让他们用浏览器打开里面的 `index.html` 即可。图片、字体和页面脚本都用相对路径，双击打开也能看到。
 
 ```bash
 npm run build
-npm run start
 ```
-
-生产模式请自行指定端口，例如 `npx next start --port 43261`。
 
 ## 技术栈
 

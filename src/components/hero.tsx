@@ -1,4 +1,5 @@
 import { hero, navActions, site } from "@/lib/content";
+import { publicAsset } from "@/lib/public-asset";
 
 export function Hero() {
   return (
@@ -7,7 +8,7 @@ export function Hero() {
         <div className="hero-wash absolute inset-0" />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/hero-bg.webp"
+          src={publicAsset("/hero-bg.webp")}
           alt=""
           width={3344}
           height={1882}

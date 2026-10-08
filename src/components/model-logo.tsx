@@ -1,3 +1,4 @@
+import { publicAsset } from "@/lib/public-asset";
 import { cn } from "@/lib/utils";
 
 const logos: Record<string, string> = {
@@ -19,7 +20,7 @@ export function ModelLogo({
   model: string;
   className?: string;
 }) {
-  const src = logos[vendor];
+  const src = logos[vendor] ? publicAsset(logos[vendor]) : undefined;
   return (
     <span
       className={cn(

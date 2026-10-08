@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Geist_Mono } from "next/font/google";
 
 import { site } from "@/lib/content";
+import { publicAsset } from "@/lib/public-asset";
 
 import "@fontsource/noto-sans-sc/chinese-simplified-400.css";
 import "@fontsource/noto-sans-sc/chinese-simplified-700.css";
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
   title: site.title,
   description: site.description,
   icons: {
-    icon: "/favicon.svg",
+    icon: publicAsset("/favicon.svg"),
   },
 };
 
