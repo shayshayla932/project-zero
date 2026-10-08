@@ -30,15 +30,16 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter] duration-500",
-        scrolled
-          ? "bg-background/65 backdrop-blur-xl supports-backdrop-filter:bg-background/50"
-          : "bg-transparent"
-      )}
-    >
-      <div className="relative flex h-16 items-center justify-between px-5 sm:px-8">
+    <header className="fixed inset-x-0 top-0 z-50">
+      <div
+        className={cn(
+          "transition-[background-color,backdrop-filter] duration-500",
+          scrolled
+            ? "bg-background/40 backdrop-blur-xl"
+            : "bg-transparent"
+        )}
+      >
+        <div className="relative flex h-16 items-center justify-between px-5 sm:px-8">
         <a
           href="#top"
           className="relative z-10 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -130,7 +131,15 @@ export function SiteHeader() {
             </div>
           </SheetContent>
         </Sheet>
+        </div>
       </div>
+      <div
+        aria-hidden
+        className={cn(
+          "pointer-events-none h-10 bg-gradient-to-b from-background/40 to-transparent backdrop-blur-md transition-opacity duration-500 [mask-image:linear-gradient(to_bottom,black,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)]",
+          scrolled ? "opacity-100" : "opacity-0"
+        )}
+      />
     </header>
   );
 }
