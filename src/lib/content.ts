@@ -11,10 +11,10 @@ export const site = {
 };
 
 export const nav = [
-  { href: "https://driven.ai/about", label: "About", external: true },
-  { href: "https://driven.ai/options", label: "Options", external: true },
-  { href: "https://driven.ai/connectors", label: "Skills connector", external: true },
-  { href: "https://driven.ai/whats-new", label: "What's new", external: true },
+  { href: "https://driven.ai/about", label: "关于我们", external: true },
+  { href: "https://driven.ai/zh-hans/options", label: "期权", external: true },
+  { href: "https://driven.ai/zh-hans/connectors", label: "技能连接器", external: true },
+  { href: "https://driven.ai/whats-new", label: "更新日志", external: true },
 ] as const;
 
 export const navActions = {
