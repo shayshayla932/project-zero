@@ -3,7 +3,7 @@
 import { Menu } from "lucide-react";
 
 import { BrandMark } from "@/components/brand-mark";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -12,41 +12,55 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { hero, nav, site } from "@/lib/content";
+import { nav, navActions } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-foreground/6 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 sm:px-8">
-        <a href="#top" className="rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+    <header className="fixed inset-x-0 top-0 z-50 bg-transparent">
+      <div className="relative flex h-16 items-center justify-between px-5 sm:px-8">
+        <a
+          href="#top"
+          className="relative z-10 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
           <BrandMark />
         </a>
 
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 md:flex">
           {nav.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              {...("external" in item
+                ? { target: "_blank", rel: "noreferrer" }
+                : {})}
+              className="text-[15px] text-foreground/80 transition-colors hover:text-foreground"
             >
               {item.label}
             </a>
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="relative z-10 hidden items-center gap-5 md:flex">
           <a
-            href={site.productUrl}
-            className={cn(buttonVariants({ size: "lg" }), "h-9 rounded-full px-4")}
+            href={navActions.secondary.href}
+            className="text-[15px] text-foreground/80 transition-colors hover:text-foreground"
           >
-            {hero.primaryCta}
+            {navActions.secondary.label}
+          </a>
+          <a
+            href={navActions.primary.href}
+            className={cn(
+              "inline-flex h-9 items-center rounded-full bg-foreground px-4 text-[14px] font-medium text-background transition-opacity hover:opacity-90"
+            )}
+          >
+            {navActions.primary.label}
           </a>
         </div>
 
         <Sheet>
           <SheetTrigger
-            className="md:hidden"
+            className="relative z-10 md:hidden"
             render={<Button variant="ghost" size="icon" />}
           >
             <Menu />
@@ -66,19 +80,32 @@ export function SiteHeader() {
                     <a
                       href={item.href}
                       className="rounded-lg px-2 py-2.5 text-sm text-foreground hover:bg-muted"
+                      {...("external" in item
+                        ? { target: "_blank", rel: "noreferrer" }
+                        : {})}
                     />
                   }
                 >
                   {item.label}
                 </SheetClose>
               ))}
+              <SheetClose
+                render={
+                  <a
+                    href={navActions.secondary.href}
+                    className="rounded-lg px-2 py-2.5 text-sm text-foreground hover:bg-muted"
+                  />
+                }
+              >
+                {navActions.secondary.label}
+              </SheetClose>
             </div>
             <div className="px-4">
               <a
-                href={site.productUrl}
-                className={cn(buttonVariants({ size: "lg" }), "h-10 w-full")}
+                href={navActions.primary.href}
+                className="inline-flex h-10 w-full items-center justify-center rounded-full bg-foreground text-sm font-medium text-background"
               >
-                {hero.primaryCta}
+                {navActions.primary.label}
               </a>
             </div>
           </SheetContent>

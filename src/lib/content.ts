@@ -1,6 +1,9 @@
 export const site = {
   name: "Driven",
   productUrl: "https://driven.ai",
+  loginUrl: "https://driven.ai/login",
+  pricingUrl: "https://driven.ai/pricing",
+  whatsNewUrl: "https://driven.ai/whats-new",
   docsUrl: "https://docs.driven.ai/zh/get-started/what-is-driven",
   benchUrl: "https://driven.ai/drivenbench",
   title: "Driven — 擅长期权交易的投资 Agent",
@@ -11,7 +14,13 @@ export const nav = [
   { href: "#product", label: "产品价值" },
   { href: "#trust", label: "值得信赖" },
   { href: "#drivenbench", label: "DrivenBench" },
+  { href: "https://driven.ai/whats-new", label: "最新动态", external: true },
 ] as const;
+
+export const navActions = {
+  secondary: { href: "https://driven.ai/pricing", label: "定价" },
+  primary: { href: "https://driven.ai/login", label: "开始使用" },
+} as const;
 
 export const hero = {
   slogan: "擅长期权交易的投资 Agent — 由实时行情数据驱动",

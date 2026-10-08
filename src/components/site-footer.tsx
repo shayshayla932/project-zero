@@ -18,6 +18,7 @@ export function SiteFooter() {
                 key={item.href}
                 href={item.href}
                 className="text-muted-foreground transition-colors hover:text-foreground"
+                {...("external" in item ? { target: "_blank", rel: "noreferrer" } : {})}
               >
                 {item.label}
               </a>
