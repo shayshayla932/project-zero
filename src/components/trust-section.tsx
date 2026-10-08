@@ -16,7 +16,7 @@ export function TrustSection() {
         <p className="text-[13px] tracking-[0.18em] text-muted-foreground uppercase">
           {trust.eyebrow}
         </p>
-        <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+        <h2 className="mt-4 max-w-xl text-3xl font-bold tracking-tight text-balance sm:text-4xl">
           {trust.title}
         </h2>
 
@@ -36,7 +36,7 @@ function DrivenBenchBlock() {
     <div id="drivenbench" className="scroll-mt-24">
       <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <div className="max-w-2xl">
-          <h3 className="text-2xl font-semibold tracking-tight">{drivenBench.title}</h3>
+          <h3 className="text-2xl font-bold tracking-tight">{drivenBench.title}</h3>
           <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
             {drivenBench.body}
           </p>
@@ -86,7 +86,7 @@ function DrivenBenchBlock() {
 function PrivacyBlock() {
   return (
     <div>
-      <h3 className="text-2xl font-semibold tracking-tight">{privacy.title}</h3>
+      <h3 className="text-2xl font-bold tracking-tight">{privacy.title}</h3>
       <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
         {privacy.body}
       </p>
@@ -109,7 +109,7 @@ function PrivacyBlock() {
 function TestimonialsBlock() {
   return (
     <div>
-      <h3 className="text-2xl font-semibold tracking-tight">{testimonials.title}</h3>
+      <h3 className="text-2xl font-bold tracking-tight">{testimonials.title}</h3>
       <p className="mt-3 text-sm text-muted-foreground">{testimonials.subtitle}</p>
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         {testimonials.items.map((item) => (
@@ -131,7 +131,7 @@ function TestimonialsBlock() {
 function PressBlock() {
   return (
     <div>
-      <h3 className="text-2xl font-semibold tracking-tight">{press.title}</h3>
+      <h3 className="text-2xl font-bold tracking-tight">{press.title}</h3>
       <div className="mt-8 divide-y divide-foreground/8 border-y border-foreground/8">
         {press.items.map((item) => (
           <a

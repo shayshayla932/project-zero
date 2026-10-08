@@ -20,7 +20,7 @@ export function ValueSections() {
         <p className="text-[13px] tracking-[0.18em] text-muted-foreground uppercase">
           {valueIntro.eyebrow}
         </p>
-        <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+        <h2 className="mt-4 max-w-xl text-3xl font-bold tracking-tight text-balance sm:text-4xl">
           {valueIntro.title}
         </h2>
       </div>
@@ -48,7 +48,7 @@ export function ValueSections() {
                       </span>
                     ))}
                 </p>
-                <h3 className="mt-4 text-2xl font-semibold tracking-tight text-balance sm:text-[2rem] sm:leading-tight">
+                <h3 className="mt-4 text-2xl font-bold tracking-tight text-balance sm:text-[2rem] sm:leading-tight">
                   {value.title}
                 </h3>
                 <p className="mt-5 max-w-md text-[15px] leading-relaxed text-muted-foreground">

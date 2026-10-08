@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Geist_Mono, Noto_Sans_SC } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 
 import { site } from "@/lib/content";
 
+import "@fontsource/noto-sans-sc/chinese-simplified-400.css";
+import "@fontsource/noto-sans-sc/chinese-simplified-700.css";
+import "@fontsource/noto-sans-sc/latin-400.css";
+import "@fontsource/noto-sans-sc/latin-700.css";
 import "./globals.css";
-
-const notoSans = Noto_Sans_SC({
-  variable: "--font-noto-sans-sc",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -34,9 +32,11 @@ export default function RootLayout({
     <html
       lang="zh-CN"
       id="top"
-      className={`${notoSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
+      className={`${geistMono.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">{children}</body>
+      <body className="min-h-full flex flex-col bg-background font-sans text-foreground">
+        {children}
+      </body>
     </html>
   );
 }

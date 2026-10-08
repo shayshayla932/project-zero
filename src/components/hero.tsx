@@ -13,7 +13,7 @@ export function Hero() {
         <p className="mb-8 text-[13px] tracking-[0.22em] text-muted-foreground uppercase">
           {site.name}
         </p>
-        <h1 className="max-w-4xl text-[2.05rem] leading-[1.18] font-semibold tracking-tight text-balance sm:text-5xl sm:leading-[1.12] md:text-[3.4rem]">
+        <h1 className="max-w-4xl text-[2.05rem] leading-[1.18] font-bold tracking-tight text-balance sm:text-5xl sm:leading-[1.12] md:text-[3.4rem]">
           {hero.slogan}
         </h1>
         <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">

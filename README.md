@@ -25,5 +25,6 @@ npm run start
 - Next.js（App Router）+ TypeScript
 - Tailwind CSS
 - shadcn/ui
+- 自托管 Noto Sans SC（简体 + Latin，400/700），不依赖系统中文字体
 
 不含登录、数据库或其他后端服务。页内演示是前端分镜动画，用于说明产品流程。
