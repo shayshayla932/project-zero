@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { ModelLogo } from "@/components/model-logo";
 import { drivenBench, press, privacy, site, testimonials, trust } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -80,8 +81,15 @@ function DrivenBenchBlock() {
                   {row.rank}
                 </td>
                 <td className="px-3 py-3">
-                  <div className="font-semibold">{row.model}</div>
-                  <div className="text-xs text-muted-foreground">{row.vendor}</div>
+                  <div className="flex items-center gap-2.5">
+                    <ModelLogo vendor={row.vendor} model={row.model} />
+                    <span className="min-w-0">
+                      <span className="block font-semibold">{row.model}</span>
+                      <span className="block text-xs text-muted-foreground">
+                        {row.vendor}
+                      </span>
+                    </span>
+                  </div>
                 </td>
                 <td className="px-3 py-3 text-right font-mono text-[13px] font-medium tabular-nums">
                   {row.score}
