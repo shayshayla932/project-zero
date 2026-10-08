@@ -1,4 +1,5 @@
 import { testimonials } from "@/lib/content";
+import { cn } from "@/lib/utils";
 
 export function TestimonialsBento() {
   return (
@@ -8,34 +9,47 @@ export function TestimonialsBento() {
       </h3>
       <p className="mt-3 text-base text-[#4C4C4C] sm:text-lg">{testimonials.subtitle}</p>
       <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {testimonials.items.map((item) => (
-          <a
-            key={item.handle}
-            href={item.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex h-full flex-col rounded-[20px] bg-[#F7F7F8] p-5 transition-colors hover:bg-[#f2f2f3] sm:p-6"
-          >
-            <div className="flex items-center gap-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={item.avatar}
-                alt=""
-                width={48}
-                height={48}
-                className="size-12 rounded-full object-cover"
-              />
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-[15px] font-semibold">{item.name}</p>
-                <p className="truncate text-xs text-[#4C4C4C]">{item.handle}</p>
+        {testimonials.items.map((item) => {
+          const featured = item.span.includes("row-span");
+          const wide = item.span.includes("col-span-2");
+          return (
+            <a
+              key={item.handle}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "group flex h-full flex-col rounded-[20px] bg-[#F7F7F8] p-5 transition-colors hover:bg-[#f2f2f3] sm:p-6",
+                featured && "lg:justify-between lg:p-8",
+                item.span
+              )}
+            >
+              <div className="flex items-center gap-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={item.avatar}
+                  alt=""
+                  width={48}
+                  height={48}
+                  className={cn("rounded-full object-cover", featured ? "size-14" : "size-12")}
+                />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-[15px] font-semibold">{item.name}</p>
+                  <p className="truncate text-xs text-[#4C4C4C]">{item.handle}</p>
+                </div>
+                {item.platform === "x" ? <XMark /> : <DiscordMark />}
               </div>
-              {item.platform === "x" ? <XMark /> : <DiscordMark />}
-            </div>
-            <p className="mt-4 text-[15px] leading-relaxed text-foreground/85">
-              <QuoteText text={item.quote} />
-            </p>
-          </a>
-        ))}
+              <p
+                className={cn(
+                  "mt-4 leading-relaxed text-foreground/85",
+                  featured || wide ? "text-base sm:text-[17px]" : "text-[15px]"
+                )}
+              >
+                <QuoteText text={item.quote} />
+              </p>
+            </a>
+          );
+        })}
       </div>
     </div>
   );
