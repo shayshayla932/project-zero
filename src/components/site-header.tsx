@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
 
 import { BrandMark } from "@/components/brand-mark";
@@ -16,8 +17,27 @@ import { nav, navActions } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    const frame = window.requestAnimationFrame(onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-transparent">
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,backdrop-filter,border-color] duration-500",
+        scrolled
+          ? "border-foreground/6 bg-background/65 backdrop-blur-xl supports-backdrop-filter:bg-background/50"
+          : "border-transparent bg-transparent"
+      )}
+    >
       <div className="relative flex h-16 items-center justify-between px-5 sm:px-8">
         <a
           href="#top"
