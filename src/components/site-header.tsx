@@ -16,49 +16,26 @@ import {
 import { nav, navActions } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-function readScrollY() {
-  return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
-}
-
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const apply = (next: boolean) => setScrolled(next);
-    const fromOffset = () => apply(readScrollY() > 8);
-
-    fromOffset();
-    window.addEventListener("scroll", fromOffset, { passive: true });
-    document.addEventListener("scroll", fromOffset, { passive: true, capture: true });
-
-    const sentinel = document.getElementById("nav-frost-sentinel");
-    const observer =
-      sentinel &&
-      new IntersectionObserver(
-        ([entry]) => apply(!entry.isIntersecting || readScrollY() > 8),
-        { threshold: 1 }
-      );
-    if (sentinel && observer) observer.observe(sentinel);
-
-    return () => {
-      window.removeEventListener("scroll", fromOffset);
-      document.removeEventListener("scroll", fromOffset, true);
-      observer?.disconnect();
-    };
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <header
-      className={cn("site-header", scrolled && "is-scrolled")}
-      data-scrolled={scrolled ? "true" : "false"}
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter] duration-500",
+        scrolled
+          ? "bg-background/40 backdrop-blur-xl"
+          : "bg-transparent"
+      )}
     >
-      <div
-        className={cn(
-          "site-header-bar",
-          scrolled && "bg-white/70 backdrop-blur-xl backdrop-saturate-150"
-        )}
-      >
-        <div className="relative flex h-16 items-center justify-between px-5 sm:px-8">
+      <div className="relative flex h-16 items-center justify-between px-5 sm:px-8">
           <a
             href="#top"
             className="relative z-10 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -148,7 +125,6 @@ export function SiteHeader() {
               </div>
             </SheetContent>
           </Sheet>
-        </div>
       </div>
     </header>
   );
