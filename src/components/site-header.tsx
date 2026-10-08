@@ -46,7 +46,7 @@ export function SiteHeader() {
           <BrandMark />
         </a>
 
-        <nav className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 md:flex">
+        <nav className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-5 lg:gap-8 md:flex">
           {nav.map((item) => (
             <a
               key={item.href}
@@ -54,7 +54,7 @@ export function SiteHeader() {
               {...("external" in item
                 ? { target: "_blank", rel: "noreferrer" }
                 : {})}
-              className="text-[15px] text-foreground/80 transition-colors hover:text-foreground"
+              className="whitespace-nowrap text-[15px] text-foreground/80 transition-colors hover:text-foreground"
             >
               {item.label}
             </a>

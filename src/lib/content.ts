@@ -11,10 +11,10 @@ export const site = {
 };
 
 export const nav = [
-  { href: "#product", label: "产品价值" },
-  { href: "#trust", label: "值得信赖" },
-  { href: "#drivenbench", label: "DrivenBench" },
-  { href: "https://driven.ai/whats-new", label: "最新动态", external: true },
+  { href: "https://driven.ai/about", label: "About", external: true },
+  { href: "https://driven.ai/options", label: "Options", external: true },
+  { href: "https://driven.ai/connectors", label: "Skills connector", external: true },
+  { href: "https://driven.ai/whats-new", label: "What's new", external: true },
 ] as const;
 
 export const navActions = {
@@ -177,7 +177,48 @@ export const press = {
 };
 
 export const footer = {
-  blurb: "把机构级投研与执行能力，交给每一位投资者。",
-  disclaimer:
-    "Driven 帮助你更快得到有证据支撑的判断，但不会替代你的判断，也不是持牌财务顾问。内容仅供研究，不构成投资建议。",
-};
+  tagline: "Made by investors, for investors",
+  copyright: "© 2026 SNOWBALL WEALTH PRIVATE LIMITED",
+  social: [
+    { href: "https://x.com/getDrivenAI", label: "X (Twitter)", icon: "x" },
+    { href: "https://discord.gg/sZxgvQfvga", label: "Discord", icon: "discord" },
+    { href: "https://www.youtube.com/@GetDrivenAI", label: "YouTube", icon: "youtube" },
+    {
+      href: "https://www.linkedin.com/company/getdrivenai/posts/?feedView=all",
+      label: "LinkedIn",
+      icon: "linkedin",
+    },
+  ],
+  columns: [
+    {
+      title: "Product",
+      links: [
+        { href: "https://driven.ai/about", label: "About" },
+        { href: "https://driven.ai/options", label: "Options" },
+        { href: "https://driven.ai/skills", label: "Skills" },
+        { href: "https://driven.ai/connectors", label: "Connectors" },
+        { href: "https://driven.ai/whats-new", label: "What's New" },
+      ],
+    },
+    {
+      title: "Resources",
+      links: [
+        { href: "https://driven.ai/drivenbench", label: "DrivenBench" },
+        { href: "https://docs.driven.ai", label: "Docs", external: true },
+        { href: "https://driven.ai/comparisons", label: "Comparisons" },
+        { href: "mailto:community@driven.ai", label: "Contact Us" },
+      ],
+    },
+    {
+      title: "Legal & Regulatory",
+      links: [
+        { href: "https://driven.ai/terms", label: "Terms of Service" },
+        { href: "https://driven.ai/privacy", label: "Privacy Policy" },
+        {
+          href: "https://driven.ai/risk-disclosure",
+          label: "Risk Disclosure & Disclaimer",
+        },
+      ],
+    },
+  ],
+} as const;
