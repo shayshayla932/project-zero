@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-开发服务器默认监听 [http://127.0.0.1:43147](http://127.0.0.1:43147)。
+开发服务器默认监听 [http://127.0.0.1:43147](http://127.0.0.1:43147)。`next.config.ts` 已允许 `127.0.0.1` 与 `localhost` 作为开发源，避免客户端脚本无法水合。
 
 ```bash
 npm run build
