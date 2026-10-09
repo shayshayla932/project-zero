@@ -20,7 +20,7 @@ export function DemoFrame({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-[20px] bg-[#12141a] text-white",
+        "overflow-hidden rounded-[24px] bg-[#12141a] text-white shadow-[0_24px_60px_rgba(22,28,45,0.07),0_2px_8px_rgba(22,28,45,0.04)]",
         className
       )}
     >

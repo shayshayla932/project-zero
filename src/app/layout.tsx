@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 
 import { site } from "@/lib/content";
 import { publicAsset } from "@/lib/public-asset";
@@ -14,6 +14,11 @@ import "@fontsource/noto-serif-sc/chinese-simplified-600.css";
 import "@fontsource/noto-serif-sc/latin-400.css";
 import "@fontsource/noto-serif-sc/latin-600.css";
 import "./globals.css";
+
+const geist = Geist({
+  variable: "--font-geist",
+  subsets: ["latin"],
+});
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -37,7 +42,7 @@ export default function RootLayout({
     <html
       lang="zh-CN"
       id="top"
-      className={`${geistMono.variable} h-full scroll-smooth antialiased`}
+      className={`${geist.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background font-sans text-foreground">
         {children}

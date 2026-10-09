@@ -21,16 +21,29 @@ export const nav = [
 
 export const navActions = {
   secondary: { href: "https://driven.ai/pricing", label: "定价" },
-  primary: { href: "https://driven.ai/login", label: "开始使用" },
+  primary: { href: "https://driven.ai/login", label: "免费试用 driven" },
 } as const;
 
 export const hero = {
   line1: "擅长期权交易的投资 Agent",
   line2: "由实时行情数据驱动",
-  support: "实时、专业、主动、个性化的投资 Agent，帮你把交易落实",
-  primaryCta: "开始使用",
+  support: "专业、主动、个性化的投资 Agent，帮你把交易落实",
+  primaryCta: "免费试用 driven",
   secondaryCta: "查看 DrivenBench",
 };
+
+export const outletLine = "Driven发布即登上 USA Today、AP 等 500+ 媒体与财经平台";
+
+export const outletLogos = [
+  { name: "USA Today", logo: "press-logos/mono/usa-today.svg" },
+  { name: "AP", logo: "press-logos/mono/ap.svg" },
+  { name: "FinancialContent", logo: "press-logos/mono/financialcontent.svg" },
+  { name: "NewsBreak", logo: "press-logos/mono/newsbreak.svg" },
+  { name: "Barchart", logo: "press-logos/mono/barchart.svg" },
+  { name: "StreetInsider", logo: "press-logos/mono/streetinsider.svg" },
+  { name: "IBTimes", logo: "press-logos/mono/ibtimes.svg" },
+  { name: "Wedbush", logo: "press-logos/mono/wedbush.svg" },
+] as const;
 
 export const valueIntro = {
   label: "产品",
@@ -42,35 +55,47 @@ export const valueIntro = {
 export const values = [
   {
     id: "realtime",
-    title: "精通期权交易，更是投资多面手。",
-    body: "内置美、港、A 市场股票、ETF 、期货实时行情，更有丰富的期权链数据和衍生指标",
-    stages: ["点击提示", "获取与计算", "数据引用", "期权 Space"],
+    eyebrow: "Real-time",
+    title: "擅长期权交易，也是投资多面手。",
+    body: "基于期权实时数据，帮你发现期权机会、比较交易策略；也有股票、ETF、外汇、加密货币与大宗商品实时行情，丰富你的投资体系。",
+    stages: ["新对话", "点击财报期权", "工具调用", "数据引用", "期权追踪"],
   },
   {
     id: "professional",
-    title: "从专业分析到交易执行，不纸上谈兵。",
-    body: "专业基金经理创建的 skill 提升分析能力，连接你的持仓券商把交易落实。",
-    stages: ["持仓诊断", "调仓建议", "添加券商 MCP", "自然语言下单"],
+    eyebrow: "Professional",
+    title: "连接券商账户，从专业分析到交易执行。",
+    body: "连接你的持仓券商，调用丰富、专业的投资技能，提升你的投资能力和胜率。",
+    stages: ["添加券商 MCP", "持仓诊断", "调仓建议", "自然语言下单"],
   },
   {
     id: "proactive",
-    title: "自动帮你干活，投资省心省力。",
-    body: "利用 schedule task 和大事件信号等触发条件，将 AI 自动化能力发挥到极致。",
-    stages: ["创建日程", "产出报告 H5", "Telegram 通知"],
+    eyebrow: "Proactive",
+    title: "7×24 小时主动监控与自动执行，投资省心省力。",
+    body: "监控市场、捕捉信号、自动执行你的策略；多个任务可同时运行，每一步操作都完全透明。",
+    stages: ["输入需求", "生成定时任务", "查看详情"],
   },
   {
     id: "personalized",
-    title: "懂你。",
-    body: "长期记忆，越用越懂你，按照既定 Playbook 执行且逐渐进化。",
-    stages: ["记忆召回", "Playbook 执行", "进化建议"],
+    eyebrow: "Personalized",
+    title: "记住投资风格及风险偏好，遵循你的投资原则。",
+    body: "具备长期记忆，按照你的投资风格和偏好执行，越用越懂你。",
+    stages: ["创建提问", "选股推荐"],
   },
 ] as const;
 
 export const trust = {
   label: "值得信赖",
-  title: "用实战标准衡量，而不是用话术。",
-  support: "DrivenBench 在真实投资工作流中比较模型的能力、成本与延迟，而不是套用通用榜单。",
   cta: { href: "https://driven.ai/drivenbench", label: "打开完整榜单" },
+};
+
+export const dataSources = {
+  title: "实时、专业的数据",
+  sources: [
+    { title: "港美股行情", body: "来自纳斯达克、港交所。", logos: ["nasdaq", "hkex"] },
+    { title: "期权实时数据", body: "来自 OPRA、港交所 OMD。", logos: ["opra", "hkex"] },
+    { title: "静态数据", body: "来自 FMP。", logos: ["fmp"] },
+    { title: "大事件数据", body: "自研 Driven SEC tool 抓取及分析。", logos: ["driven"] },
+  ],
 };
 
 export const drivenBench = {
@@ -94,7 +119,6 @@ export const drivenBench = {
 
 export const privacy = {
   title: "数据和隐私保护",
-  body: "数字来自数据库，而不是模型的记忆。你始终握有拍板权。",
   points: [
     {
       title: "可核验的数据，而不是幻觉",
@@ -214,28 +238,32 @@ export const press = {
   title: "媒体报道",
   items: [
     {
-      outlet: "MarketersMedia",
-      date: "2026-09",
+      outlet: "USA Today",
+      logo: "press-logos/usa-today.svg",
+      date: "2026-09-29",
       title: "Driven 发布 DrivenBench：用真实投资任务比较主流模型",
-      href: "https://news.marketersmedia.com/driven-launches-drivenbench-to-compare-leading-ai-models-across-real-world-investment-tasks/89204395",
+      href: "https://www.usatoday.com/press-release/story/44567/driven-launches-drivenbench-to-compare-leading-ai-models-across-real-world-investment-tasks/",
     },
     {
-      outlet: "Driven Blog",
-      date: "2026-08",
-      title: "最贵的模型不一定最好：11 个模型在 15 类投资任务中的结果",
-      href: "https://driven.ai/whats-new/blog/most-expensive-ai-model-isnt-always-the-best",
+      outlet: "AP News",
+      logo: "press-logos/ap.svg",
+      date: "2026-09-25",
+      title: "Driven 发布 DrivenBench：用真实投资任务比较主流模型",
+      href: "https://apnews.com/press-release/marketersmedia/press-release-3536e20915909c5f1b37bb6c1f986076",
     },
     {
-      outlet: "Product Hunt",
-      date: "2026",
-      title: "Driven 在 Product Hunt 发布：你的 AI 投资团队",
-      href: "https://driven.ai",
+      outlet: "IBTimes",
+      logo: "press-logos/ibtimes.svg",
+      date: "2026-09-25",
+      title: "Driven 发布 DrivenBench：用真实投资任务比较主流模型",
+      href: "https://markets.financialcontent.com/ibtimes/news/article/marketersmedia-2026-9-25-driven-launches-drivenbench-to-compare-leading-ai-models-across-real-world-investment-tasks",
     },
     {
-      outlet: "雪球",
-      date: "2026-06",
-      title: "内测用户：拆解财报、筛查市场信息，并沉淀为私有知识库",
-      href: "https://www.xueqiu.com/u/3932375174",
+      outlet: "NewsBreak",
+      logo: "press-logos/newsbreak.svg",
+      date: "2026-09-29",
+      title: "Driven 发布 DrivenBench：用真实投资任务比较主流模型",
+      href: "https://www.newsbreak.com/dmr-news-321522575/4907480135322-driven-launches-drivenbench-to-compare-leading-ai-models-across-real-world-investment-tasks",
     },
   ],
 };

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 196" fill="none">
+  <text x="408" y="78" text-anchor="end" fill="#8d8d8d" font-size="20" font-family="ui-sans-serif, PingFang SC, Noto Sans SC, sans-serif">RIFVKCJCO=</text>
+  <text x="1032" y="78" fill="#8d8d8d" font-size="20" font-family="ui-sans-serif, PingFang SC, Noto Sans SC, sans-serif">==$^*VBG*w4@</text>
+
+  <rect x="420" y="28" width="600" height="140" rx="26" fill="#242424" stroke="#3a3a3a"/>
+  <text x="444" y="78" fill="#f4f4f4" font-size="22" font-family="PingFang SC, Noto Sans SC, Microsoft YaHei, sans-serif">(„È&7U 20 ¡</text>
+
+  <circle cx="459" cy="128" r="15" fill="#3a3a3a"/>
+  <g transform="translate(452.01 121.01) scale(0.75)" fill="#f4f4f4">
+    <path d="M4.65918 9.31494C4.65918 8.88612 5.00681 8.53849 5.43563 8.53849H13.2001C13.6289 8.53849 13.9766 8.88612 13.9766 9.31494C13.9766 9.74376 13.6289 10.0914 13.2001 10.0914H5.43563C5.00681 10.0914 4.65918 9.74376 4.65918 9.31494Z"/>
+    <path d="M9.31787 13.9736C8.88905 13.9736 8.54142 13.626 8.54142 13.1972L8.54142 5.4327C8.54142 5.00388 8.88905 4.65625 9.31787 4.65625C9.74669 4.65625 10.0943 5.00388 10.0943 5.4327L10.0943 13.1972C10.0943 13.626 9.74669 13.9736 9.31787 13.9736Z"/>
+  </g>
+
+  <circle cx="497" cy="128" r="15" fill="#3a3a3a"/>
+  <g transform="translate(490.01 121.01) scale(0.75)" fill="none" stroke="#f4f4f4" stroke-width="1.16" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10.0106 4.65625L5.43506 10.7125H9.40049L9.09546 14.7501L13.3659 8.69378H9.40049L10.0106 4.99271"/>
+  </g>
+
+  <rect x="528" y="113" width="168" height="30" rx="15" fill="#3a3a3a"/>
+  <rect x="534" y="119" width="18" height="18" rx="9" fill="#111"/>
+  <text x="543" y="132" text-anchor="middle" fill="#f4f4f4" font-size="11" font-family="ui-sans-serif, sans-serif" font-weight="650">L</text>
+  <text x="560" y="132.5" fill="#bdbdbd" font-size="11" font-family="ui-sans-serif, sans-serif">+5</text>
+  <text x="584" y="132.5" fill="#f4f4f4" font-size="13" font-family="ui-sans-serif, PingFang SC, sans-serif">Claude Fable 5.1</text>
+  <g transform="translate(668 128.3) scale(1.15)" fill="none" stroke="#f4f4f4" stroke-width="0.93" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8.1058 3.4471L5 6.5529L1.89421 3.4471"/>
+  </g>
+
+  <circle cx="984" cy="128" r="16" fill="#f4f4f4"/>
+  <g transform="translate(974.68 118.68)" fill="#1a1a1a">
+    <path d="M3.43781 14.0886L8.9708 3.0226C9.11387 2.73646 9.5222 2.73646 9.66527 3.0226L15.1983 14.0886C15.3383 14.3687 15.1061 14.6908 14.7961 14.6465L9.65146 13.9116L9.31803 9.42708L8.98461 13.9116L3.83995 14.6465C3.52993 14.6908 3.29776 14.3687 3.43781 14.0886Z"/>
+  </g>
+</svg>

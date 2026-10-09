@@ -18,6 +18,19 @@ export function useStagedPlayback(count: number, active: boolean, intervalMs = 2
   return stage;
 }
 
+/** Speeds every product demo. 1 matches the original timeline. */
+export const demoSpeed = 1.4;
+
+/** Move clipped demo copy without turning it into a scroll container. */
+export function followScroll(viewport: HTMLElement, top?: number) {
+  const inner = viewport.firstElementChild as HTMLElement | null;
+  if (!inner) return;
+  const max = Math.max(0, inner.offsetHeight - viewport.clientHeight);
+  const next = top == null ? max : Math.min(max, Math.max(0, top));
+  inner.style.transition = "none";
+  inner.style.transform = `translateY(-${next}px)`;
+}
+
 export function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
 

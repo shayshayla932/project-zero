@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero";
+import { OutletWall } from "@/components/outlet-wall";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { TrustSection } from "@/components/trust-section";
@@ -10,6 +11,7 @@ export default function Home() {
       <SiteHeader />
       <main>
         <Hero />
+        <OutletWall />
         <ValueSections />
         <TrustSection />
       </main>
