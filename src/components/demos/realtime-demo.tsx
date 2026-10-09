@@ -313,7 +313,6 @@ function OptionHero({ zoomed }: { zoomed: boolean }) {
             icon="icon-activity.svg"
             title="市场大单期权异动信号"
             body="发现异常成交量和可能重要的交易。"
-            chevronEnd
           />
           <Hairline />
           <div data-zoom-row>
@@ -390,13 +389,11 @@ function Opportunity({
   title,
   body,
   pressed,
-  chevronEnd,
 }: {
   icon: string;
   title: string;
   body: string;
   pressed?: boolean;
-  chevronEnd?: boolean;
 }) {
   return (
     <div className={cn("mx-1 flex items-start gap-2 rounded-[8px] px-2 py-2.5", pressed && "bg-[#edf6ff]")}>
@@ -404,11 +401,10 @@ function Opportunity({
       <div className="min-w-0 flex-1">
         <div className="flex items-center">
           <p className="text-[12.2px] leading-[18px] font-medium text-[#101423]">{title}</p>
-          {chevronEnd ? null : <Caret />}
+          <Caret />
         </div>
         <p className="mt-[7px] text-[10.5px] text-[#797c86]">{body}</p>
       </div>
-      {chevronEnd ? <Caret /> : null}
     </div>
   );
 }

@@ -243,7 +243,7 @@ function Sidebar() {
       </div>
       <div className="my-2.5 h-px bg-[#eceef2]" />
       <p className="px-1.5 py-1 text-[12px] text-[#797c86]">空间</p>
-      <SideItem file="sidebar-options.svg" active>期权</SideItem>
+      <SideItem file="sidebar-options.svg">期权</SideItem>
       <div className="mt-3 flex h-8 items-center px-1.5">
         <p className="min-w-0 flex-1 text-[12px] text-[#797c86]">对话</p>
         <Glyph file="sidebar-ellipsis.svg" width={16} height={16} />

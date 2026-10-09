@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { SoftPanel } from "@/components/display";
 import { ChevronRight } from "lucide-react";
 import { ModelLogo } from "@/components/model-logo";
+import { FaqSection } from "@/components/faq-section";
 import { TestimonialsBento } from "@/components/testimonials-bento";
 import { dataSources, drivenBench, press, privacy, trust } from "@/lib/content";
 import { publicAsset } from "@/lib/public-asset";
@@ -19,6 +20,7 @@ export function TrustSection() {
           <PrivacyBlock />
           {false ? <PressBlock /> : null}
           <TestimonialsBento />
+          <FaqSection />
         </div>
       </div>
     </section>

@@ -55,28 +55,28 @@ export const valueIntro = {
 export const values = [
   {
     id: "realtime",
-    eyebrow: "Real-time",
+    eyebrow: "实时",
     title: "擅长期权交易，也是投资多面手。",
     body: "基于期权实时数据，帮你发现期权机会、比较交易策略；也有股票、ETF、外汇、加密货币与大宗商品实时行情，丰富你的投资体系。",
     stages: ["新对话", "点击财报期权", "工具调用", "数据引用", "期权追踪"],
   },
   {
     id: "professional",
-    eyebrow: "Professional",
+    eyebrow: "专业",
     title: "连接券商账户，从专业分析到交易执行。",
     body: "连接你的持仓券商，调用丰富、专业的投资技能，提升你的投资能力和胜率。",
     stages: ["添加券商 MCP", "持仓诊断", "调仓建议", "自然语言下单"],
   },
   {
     id: "proactive",
-    eyebrow: "Proactive",
+    eyebrow: "主动",
     title: "7×24 小时主动监控与自动执行，投资省心省力。",
     body: "监控市场、捕捉信号、自动执行你的策略；多个任务可同时运行，每一步操作都完全透明。",
     stages: ["输入需求", "生成定时任务", "查看详情"],
   },
   {
     id: "personalized",
-    eyebrow: "Personalized",
+    eyebrow: "个性化",
     title: "记住投资风格及风险偏好，遵循你的投资原则。",
     body: "具备长期记忆，按照你的投资风格和偏好执行，越用越懂你。",
     stages: ["创建提问", "选股推荐"],
@@ -264,6 +264,108 @@ export const press = {
       date: "2026-09-29",
       title: "Driven 发布 DrivenBench：用真实投资任务比较主流模型",
       href: "https://www.newsbreak.com/dmr-news-321522575/4907480135322-driven-launches-drivenbench-to-compare-leading-ai-models-across-real-world-investment-tasks",
+    },
+  ],
+};
+
+export const faq = {
+  title: "还有问题？",
+  compare: {
+    question: "Driven 和 ChatGPT 有什么不同？",
+    generalHeader: "通用 AI（ChatGPT、Claude 等）",
+    drivenHeader: "Driven",
+    rows: [
+      { label: "金融数据", general: "依赖训练数据和网页搜索", driven: "接入 260+ 个专业行情数据接口" },
+      { label: "分析能力", general: "通用知识问答", driven: "机构级技能，为投研场景专门设计的工作流" },
+      { label: "记忆", general: "通用记忆", driven: "持久且不断演进的投资策略记忆" },
+      { label: "任务", general: "只有基础的低频定时能力", driven: "7×24 小时自动监控与执行" },
+      { label: "组合管理", general: "没有", driven: "模拟交易，以及通过已支持的连接器接入券商的实盘执行" },
+    ],
+  },
+  items: [
+    {
+      question: "Driven 支持哪些平台？",
+      lines: [
+        { label: "网页版：", text: "功能完整，桌面端与移动端浏览器都能用，无需安装。" },
+        { label: "Telegram：", text: "通过 Telegram Bot 与你的 Agent 对话，几乎支持全部核心功能。" },
+        { text: "更多平台（Slack、Discord、微信等）正在路上。你的 Agent、策略与数据在所有平台间保持同步。" },
+      ],
+    },
+    {
+      question: "我可以创建多个 Agent 吗？",
+      intro: "可以。Free 与 Pro 包含 1 个 Agent，Max 与 Ultra 可解锁更多。",
+      lead: "每个 Agent 都有自己的策略手册、投资组合与定时任务。常见搭配：",
+      lines: [
+        { text: "一个 Agent 盯美股，另一个盯港股。" },
+        { text: "一个稳健收益型 Agent，搭配一个进取成长型 Agent。" },
+        { text: "一个专职监控 Agent，跟踪宏观指标。" },
+      ],
+      outro: "各个 Agent 完全独立，不同策略之间互不干扰。",
+    },
+    {
+      question: "支持哪些市场和资产类型？",
+      lines: [
+        { label: "市场：", text: "研究覆盖美股、港股与 A 股，以及全球宏观与市场背景数据。" },
+        { label: "资产类型：", text: "股票、ETF 与基金、美股期权、外汇、加密货币、大宗商品，以及用于研究分析的宏观数据。" },
+        { text: "覆盖范围与更新频率因市场和数据集而异。模拟交易目前支持美股与港股账户。券商持仓分析与实盘下单需通过已支持的券商连接器，且仅在开放地区可用。" },
+      ],
+    },
+    {
+      question: "Driven 如何保护我的数据？",
+      lead: "Driven 采用隐私优先的架构：",
+      lines: [
+        { label: "边缘计算：", text: "数据在 Cloudflare 的全球边缘网络上处理，而非集中式服务器。" },
+        { label: "数据隔离：", text: "每位用户的数据都存放在各自独立的环境中。" },
+        { label: "静态加密：", text: "所有存储的数据都经过加密。" },
+        { label: "身份认证：", text: "通过 Google OAuth 安全登录。" },
+        { label: "不共享：", text: "你的策略、投资组合与对话不会被共享，也不会用于训练 AI 模型。" },
+      ],
+    },
+    {
+      question: "Driven 提供投资建议吗？",
+      paragraphs: [
+        "Driven 的 Agent 会收集信息、进行分析，不提供投资建议。这些内容仅供参考。",
+        "最终的投资决策始终应由你自己作出。Driven 帮你研究得更充分、更省时间，但你需要为自己的投资完全负责。",
+      ],
+      emphasis: "这些内容仅供参考。",
+    },
+    {
+      question: "AI 会出错吗？",
+      lead: "会，这一点很重要。AI 模型可能会：",
+      lines: [
+        { text: "误读数据或得出错误结论。" },
+        { text: "基于不完整的信息进行分析。" },
+        { text: "在计算或推理中出错。" },
+      ],
+      outro: "正因如此，透明性是 Driven 设计的核心。Agent 的每一步都有记录，你可以查看它的推理过程、核对数据来源，并推翻任何决定。Agent 是强大的助手，不是自动驾驶。",
+    },
+    {
+      question: "我可以导出自己的数据吗？",
+      paragraphs: [
+        "可以。每个 Agent 都有自己的工作区，生成的研究报告与分析文件可直接下载。策略手册、交易记录与持仓数据也可随时在 Agent 面板中查看。",
+      ],
+    },
+    {
+      question: "试用需要绑定信用卡吗？",
+      paragraphs: ["不需要。新用户可以直接从 Free 套餐开始，无需信用卡。"],
+    },
+    {
+      question: "哪里可以获得帮助？",
+      lines: [
+        { label: "产品内反馈：", text: "在 Driven 中点击 Feedback 按钮直接提交反馈。" },
+        {
+          label: "Discord：",
+          before: "加入 ",
+          link: { href: "https://discord.gg/sZxgvQfvga", label: "Discord 上的 Driven 社区" },
+          text: "，反馈产品意见、交流投资策略。",
+        },
+        {
+          label: "邮件：",
+          before: "通过 ",
+          link: { href: "mailto:community@driven.ai", label: "community@driven.ai" },
+          text: " 联系我们。",
+        },
+      ],
     },
   ],
 };
