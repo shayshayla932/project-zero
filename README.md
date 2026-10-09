@@ -1,5 +1,7 @@
 # Driven 营销落地页
 
+在线预览：<https://shayshayla932.github.io/project-zero/>
+
 Driven 中文营销站点：擅长期权交易、由实时行情驱动的投资 Agent。页面按产品价值（实时数据、专业 Skill / MCP、主动自动化、个性化记忆）与「值得信赖」板块组织，英雄区只有口号、副文案和行动按钮，不含产品截图。
 
 ## 本地运行
