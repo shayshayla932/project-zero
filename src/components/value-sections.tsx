@@ -1,5 +1,7 @@
 "use client";
 
+import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
+
 import { SectionLead, SoftPanel } from "@/components/display";
 import { PersonalizedDemo } from "@/components/demos/personalized-demo";
 import { ProactiveDemo } from "@/components/demos/proactive-demo";
@@ -54,17 +56,58 @@ const washes = {
   personalized: ["rgba(176, 214, 236, 0.52)", "rgba(196, 228, 204, 0.3)"],
 } as const;
 
+const EMBED_WIDTH = 1360;
+
 export function ValueModuleStage({ id }: { id: ModuleId }) {
   return (
-    <div className="bg-white px-4 py-6 sm:px-6">
-      <div className="mx-auto w-full max-w-[1360px]">
-        <ValueArticle id={id} />
+    <EmbedFit>
+      <ValueArticle id={id} embed />
+    </EmbedFit>
+  );
+}
+
+function EmbedFit({ children }: { children: ReactNode }) {
+  const frame = useRef<HTMLDivElement>(null);
+  const card = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useLayoutEffect(() => {
+    document.documentElement.classList.add("module-page");
+    const frameEl = frame.current;
+    const cardEl = card.current;
+    if (!frameEl || !cardEl) return;
+
+    const fit = () => {
+      const cardHeight = cardEl.offsetHeight;
+      if (frameEl.clientWidth < 1 || frameEl.clientHeight < 1 || cardHeight < 1) return;
+      const next = Math.min(frameEl.clientWidth / EMBED_WIDTH, frameEl.clientHeight / cardHeight);
+      setScale(Number.isFinite(next) && next > 0 ? next : 1);
+    };
+
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(frameEl);
+    observer.observe(cardEl);
+    return () => {
+      observer.disconnect();
+      document.documentElement.classList.remove("module-page");
+    };
+  }, []);
+
+  return (
+    <div ref={frame} className="fixed inset-0 overflow-hidden bg-transparent">
+      <div
+        ref={card}
+        className="absolute top-1/2 left-1/2 w-[1360px]"
+        style={{ transform: `translate(-50%, -50%) scale(${scale})` }}
+      >
+        {children}
       </div>
     </div>
   );
 }
 
-export function ValueArticle({ id }: { id: ModuleId }) {
+export function ValueArticle({ id, embed = false }: { id: ModuleId; embed?: boolean }) {
   const index = values.findIndex((value) => value.id === id);
   const value = values[index];
   const Demo = demos[id];
@@ -74,7 +117,12 @@ export function ValueArticle({ id }: { id: ModuleId }) {
 
   return (
     <article id={value.id}>
-      <SoftPanel className="relative overflow-hidden px-6 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-16">
+      <SoftPanel
+        className={cn(
+          "relative overflow-hidden",
+          embed ? "px-14 py-16" : "px-6 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-16",
+        )}
+      >
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-clip">
           <div
             className="absolute inset-0"
@@ -85,19 +133,24 @@ export function ValueArticle({ id }: { id: ModuleId }) {
             }}
           />
         </div>
-        <div className="relative grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
-          <div className={cn("lg:col-span-5", reverse && "lg:order-2")}>
+        <div className={cn("relative grid items-center", embed ? "grid-cols-12 gap-14" : "gap-10 lg:grid-cols-12 lg:gap-14")}>
+          <div className={cn(embed ? "col-span-5" : "lg:col-span-5", reverse && (embed ? "order-2" : "lg:order-2"))}>
             <p className="mb-4 inline-flex items-center rounded-full bg-[#E6F4FC] px-3.5 py-1.5 text-[13px] leading-none font-medium tracking-[-0.01em] text-[#1A6F9E]">
               {t(value.eyebrow, copy.eyebrow)}
             </p>
-            <h3 className="text-[28px] leading-[1.2] font-medium tracking-[-0.02em] text-balance sm:text-[36px] md:text-[40px]">
+            <h3
+              className={cn(
+                "leading-[1.2] font-medium tracking-[-0.02em] text-balance",
+                embed ? "text-[40px]" : "text-[28px] sm:text-[36px] md:text-[40px]",
+              )}
+            >
               {t(value.title, copy.title)}
             </h3>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-[#4C4C4C] sm:text-lg">
+            <p className={cn("mt-5 max-w-md leading-relaxed text-[#4C4C4C]", embed ? "text-lg" : "text-base sm:text-lg")}>
               {t(value.body, copy.body)}
             </p>
           </div>
-          <div className={cn("lg:col-span-7", reverse && "lg:order-1")}>
+          <div className={cn(embed ? "col-span-7" : "lg:col-span-7", reverse && (embed ? "order-1" : "lg:order-1"))}>
             <Demo />
           </div>
         </div>

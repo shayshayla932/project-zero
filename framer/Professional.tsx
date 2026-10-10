@@ -14,7 +14,7 @@ export default function ProfessionalModule(props) {
         <iframe
             title="Professional"
             src={`${base}/professional.html`}
-            style={{ border: "none", background: "#ffffff", width: "100%", height: "100%", ...props.style }}
+            style={{ border: "none", background: "transparent", width: "100%", height: "100%", ...props.style }}
         />
     )
 }

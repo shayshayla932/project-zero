@@ -163,6 +163,22 @@ html.module-embed #site {
   display: none;
 }
 
+/* Standalone module pages fill the frame and hide the document scrollbar. */
+html.module-page,
+html.module-page body,
+html.module-page #site {
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background: transparent !important;
+  scrollbar-width: none;
+}
+
+html.module-page::-webkit-scrollbar,
+html.module-page body::-webkit-scrollbar {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

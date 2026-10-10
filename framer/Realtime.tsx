@@ -30,7 +30,7 @@ function ModuleFrame({ title, module, page, style }) {
             src={src}
             style={{
                 border: "none",
-                background: "#ffffff",
+                background: "transparent",
                 width: "100%",
                 height: "100%",
                 ...style,
