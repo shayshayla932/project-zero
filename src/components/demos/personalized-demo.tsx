@@ -4,6 +4,7 @@ import { FileText, Pencil, Settings2, Zap } from "lucide-react";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 import { AgentRow, ChatComposer, UserBubble } from "@/components/demos/chat-chrome";
+import { useT } from "@/lib/locale";
 import { publicAsset } from "@/lib/public-asset";
 import { demoSpeed, followScroll, usePrefersReducedMotion } from "@/lib/use-demo-playback";
 import { cn } from "@/lib/utils";
@@ -16,8 +17,10 @@ const productFont: CSSProperties = {
   fontFamily: 'var(--font-geist), "PingFang SC", "Noto Sans SC", sans-serif',
 };
 
-const USER_PREFS = "我想看看美股、ETF和期权，主要关注人工智能、半导体和科技领域";
-const USER_RISK = "我能承受中等风险，但希望能明确指出下行风险。先找一些符合这些要求的股票";
+const USER_PREFS_ZH = "我想看看美股、ETF和期权，主要关注人工智能、半导体和科技领域";
+const USER_PREFS_EN = "Show me US stocks, ETFs, and options, focused on AI, semiconductors, and technology.";
+const USER_RISK_ZH = "我能承受中等风险，但希望能明确指出下行风险。先找一些符合这些要求的股票";
+const USER_RISK_EN = "I can take moderate risk, but call out the downside. Start with stocks that fit.";
 
 const T = {
   user1: 2400,
@@ -78,6 +81,7 @@ const past: Record<Phase, Phase[]> = {
 
 export function PersonalizedDemo() {
   const reduced = usePrefersReducedMotion();
+  const t = useT();
   const phase = usePhase(reduced);
   const show = (name: Phase) => reduced || past[phase].includes(name);
   const asking = phase === "ask" || phase === "choose";
@@ -112,25 +116,25 @@ export function PersonalizedDemo() {
                 Hi! I&apos;m your Driven assistant. I can help with multi-asset research, 24/7 market monitoring through scheduled tasks, paper trading for US and Hong Kong stocks, and live trading through a connected brokerage that supports orders. What should I call you?
               </p>
               <div className="mt-4 flex flex-col items-start gap-2">
-                <Chip icon={<Spark />}>癌症疫苗里程碑能否改写莫德纳叙事？</Chip>
-                <Chip icon={<Bars />}>试一试最受欢迎的投资技能 Global Flow Pulse</Chip>
-                <Chip icon={<ImageIcon />}>上传你的持仓截图进行分析</Chip>
+                <Chip icon={<Spark />}>{t("癌症疫苗里程碑能否改写莫德纳叙事？", "Could a cancer-vaccine milestone rewrite the Moderna story?")}</Chip>
+                <Chip icon={<Bars />}>{t("试一试最受欢迎的投资技能 Global Flow Pulse", "Try the most-used skill, Global Flow Pulse")}</Chip>
+                <Chip icon={<ImageIcon />}>{t("上传你的持仓截图进行分析", "Upload a screenshot of your holdings")}</Chip>
               </div>
             </div>
 
             <Reveal show={show("user1")}>
               <div data-anchor="user1" className="mt-5">
-                <UserBubble>{USER_PREFS}</UserBubble>
+                <UserBubble>{t(USER_PREFS_ZH, USER_PREFS_EN)}</UserBubble>
               </div>
             </Reveal>
 
             <Reveal show={show("tools")}>
               <div data-anchor="tools" className="mt-4">
-                <Tool icon={<FileText size={14} />} label="读取文件" detail="/workspace/MEMORY.md" />
-                <Tool icon={<Pencil size={14} />} label="编辑文件" detail="3 次" />
-                <Tool icon={<FileText size={14} />} label="读取文件" detail="/workspace/PROFILE.md" />
-                <Tool icon={<Pencil size={14} />} label="编辑文件" detail="2 次" />
-                <Tool icon={<Settings2 size={14} />} label="设置" detail='{"name":"Avery","description":"Avery is a personal investmen...' />
+                <Tool icon={<FileText size={14} />} label={t("读取文件", "Read file")} detail="/workspace/MEMORY.md" />
+                <Tool icon={<Pencil size={14} />} label={t("编辑文件", "Edit file")} detail={t("3 次", "3 times")} />
+                <Tool icon={<FileText size={14} />} label={t("读取文件", "Read file")} detail="/workspace/PROFILE.md" />
+                <Tool icon={<Pencil size={14} />} label={t("编辑文件", "Edit file")} detail={t("2 次", "2 times")} />
+                <Tool icon={<Settings2 size={14} />} label={t("设置", "Settings")} detail='{"name":"Avery","description":"Avery is a personal investmen...' />
               </div>
             </Reveal>
 
@@ -143,16 +147,16 @@ export function PersonalizedDemo() {
 
             <Reveal show={show("user2")}>
               <div data-anchor="user2" className="mt-5">
-                <UserBubble>{USER_RISK}</UserBubble>
+                <UserBubble>{t(USER_RISK_ZH, USER_RISK_EN)}</UserBubble>
               </div>
             </Reveal>
 
             <Reveal show={show("work")}>
               <div data-anchor="work" className="mt-4">
-                <Tool icon={<Zap size={14} />} label="加载技能" detail="2 次" />
+                <Tool icon={<Zap size={14} />} label={t("加载技能", "Load skill")} detail={t("2 次", "2 times")} />
                 <div className="rounded-xl border border-[#eceef2] bg-white px-3 py-2.5">
                   <p className="flex items-center gap-1.5 text-[12px] text-[#797c86]">
-                    待办清单已更新
+                    {t("待办清单已更新", "Checklist updated")}
                     <Glyph file="chevron-down.svg" width={12} height={12} />
                   </p>
                   <ul className="mt-2 flex flex-col gap-2">
@@ -161,33 +165,33 @@ export function PersonalizedDemo() {
                     <Todo done={done >= 3}>Present a concise risk-aware shortlist and screening caveats</Todo>
                   </ul>
                 </div>
-                <Tool icon={<FileText size={14} />} label="读取文件" detail="2 次" />
-                <Tool icon={<Pencil size={14} />} label="编辑文件" detail="2 次" />
+                <Tool icon={<FileText size={14} />} label={t("读取文件", "Read file")} detail={t("2 次", "2 times")} />
+                <Tool icon={<Pencil size={14} />} label={t("编辑文件", "Edit file")} detail={t("2 次", "2 times")} />
               </div>
             </Reveal>
 
             <Reveal show={show("pick")}>
               <div data-anchor="pick" className="mt-5">
                 <p className="text-[13.5px] leading-7 text-[#101423]">
-                  初筛值得继续研究的有<b className="font-semibold">英伟达（NVDA）和博通（AVGO）</b>；<b className="font-semibold">台积电（TSM）</b>也在主题内，但地缘政治尾部风险更高。坦白说，半导体单股很难算严格的“中等风险”，所以下面是候选观察名单，不是买入建议。
+                  {t("初筛值得继续研究的有", "Worth a closer look: ")}<b className="font-semibold">{t("英伟达（NVDA）和博通（AVGO）", "NVIDIA (NVDA) and Broadcom (AVGO)")}</b>{t("；", ". ")}<b className="font-semibold">{t("台积电（TSM）", "TSMC (TSM)")}</b>{t("也在主题内，但地缘政治尾部风险更高。坦白说，半导体单股很难算严格的“中等风险”，所以下面是候选观察名单，不是买入建议。", " fits the theme, with a higher geopolitical tail. Single semiconductor names are hard to call strictly moderate risk, so this is a watchlist, not a buy list.")}
                 </p>
                 <div data-anchor="table" className="mt-4 overflow-hidden rounded-xl border border-[#eceef2] bg-white">
                   <div className="grid grid-cols-[88px_92px_1fr] gap-3 border-b border-[#f1f1f1] px-3 py-2.5 text-[12px] text-[#797c86]">
-                    <span>候选</span>
-                    <span>样本内平衡筛选分</span>
-                    <span>主要下行风险</span>
+                    <span>{t("候选", "Name")}</span>
+                    <span>{t("样本内平衡筛选分", "In-sample score")}</span>
+                    <span>{t("主要下行风险", "Main downside")}</span>
                   </div>
-                  <PickRow name="英伟达" ticker="NVDA" score="67.5" risk="出口管制可能限制中国市场和产品销售；公司披露供应链主要集中在亚洲，制造与先进封装环节若受扰，可能影响交付。见其2026财年10-K。" />
-                  <PickRow name="台积电" ticker="TSM" score="55" risk="地缘政治是显著尾部风险；公司也披露地震、洪水以及水电等公用设施中断可能扰乱运营。对中等风险偏好者，我会把它列为较高风险备选。见其2025年20-F。" />
-                  <PickRow name="博通" ticker="AVGO" score="27.5" risk="公司披露，2025财年前五大终端客户合计约占营收40%；若大客户削减AI基础设施支出或转向自研，业绩可能受影响。" last />
+                  <PickRow name={t("英伟达", "NVIDIA")} ticker="NVDA" score="67.5" risk={t("出口管制可能限制中国市场和产品销售；公司披露供应链主要集中在亚洲，制造与先进封装环节若受扰，可能影响交付。见其2026财年10-K。", "Export controls can limit China sales. The supply chain is concentrated in Asia, so a disruption in manufacturing or advanced packaging can hit delivery. See the FY2026 10-K.")} />
+                  <PickRow name={t("台积电", "TSMC")} ticker="TSM" score="55" risk={t("地缘政治是显著尾部风险；公司也披露地震、洪水以及水电等公用设施中断可能扰乱运营。对中等风险偏好者，我会把它列为较高风险备选。见其2025年20-F。", "Geopolitics is a real tail risk. Earthquakes, floods, and utility outages can disrupt operations. For a moderate-risk preference I would treat it as the higher-risk name. See the 2025 20-F.")} />
+                  <PickRow name={t("博通", "Broadcom")} ticker="AVGO" score="27.5" risk={t("公司披露，2025财年前五大终端客户合计约占营收40%；若大客户削减AI基础设施支出或转向自研，业绩可能受影响。", "The top five end customers were about 40% of FY2025 revenue. If a large customer cuts AI infrastructure spend or builds in-house, results can suffer.")} last />
                 </div>
                 <p className="mt-4 text-[13px] leading-6 text-[#101423]">
-                  <b className="font-semibold">筛选口径：</b>
-                  美国科技、半导体及相关设备类别；采用估值因子（P/E、P/B）40%、ROE 35%、250日价格动量 25%的平衡权重。本轮只对按市值顺序返回的3只做相对计分，不代表全市场排名；分数也不是风险分，不能据此判断哪只更安全。
+                  <b className="font-semibold">{t("筛选口径：", "Screen: ")}</b>
+                  {t("美国科技、半导体及相关设备类别；采用估值因子（P/E、P/B）40%、ROE 35%、250日价格动量 25%的平衡权重。本轮只对按市值顺序返回的3只做相对计分，不代表全市场排名；分数也不是风险分，不能据此判断哪只更安全。", "US technology, semiconductors, and related equipment. Weights are valuation (P/E, P/B) 40%, ROE 35%, and 250-day momentum 25%. Scores cover only the three names returned by market cap. They are not a market ranking and not a risk score.")}
                 </p>
                 <p className="mt-3 text-[13px] leading-6 text-[#101423]">
-                  <b className="font-semibold">按你的中等风险偏好，我会先深入看NVDA和AVGO；TSM则要把地缘政治风险作为核心考量。</b>
-                  三者仍有行业和公司集中风险，不应把任何一只视为低波动标的。
+                  <b className="font-semibold">{t("按你的中等风险偏好，我会先深入看NVDA和AVGO；TSM则要把地缘政治风险作为核心考量。", "For a moderate risk preference I would study NVDA and AVGO first, and treat geopolitics as central for TSM.")}</b>
+                  {t("三者仍有行业和公司集中风险，不应把任何一只视为低波动标的。", " All three still concentrate industry and company risk. None of them is a low-volatility holding.")}
                 </p>
               </div>
             </Reveal>
@@ -199,20 +203,20 @@ export function PersonalizedDemo() {
               <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-4">
                 <div className="rounded-2xl border border-[#eceef2] bg-white px-4 pt-3.5 pb-3 shadow-[0_16px_40px_rgba(16,20,35,0.12)]">
                   <div className="flex items-start justify-between gap-3">
-                    <p className="text-[14px] font-medium text-[#101423]">你想先从哪类内容开始？</p>
+                    <p className="text-[14px] font-medium text-[#101423]">{t("你想先从哪类内容开始？", "Where should we start?")}</p>
                     <span className="text-[16px] leading-none text-[#b0b3bd]">×</span>
                   </div>
                   <div className="mt-2">
-                    <Choice k="A" selected={chosen}>AI / 半导体个股与ETF</Choice>
-                    <Choice k="B">相关期权机会</Choice>
-                    <Choice k="C">建立一份美股关注清单</Choice>
+                    <Choice k="A" selected={chosen}>{t("AI / 半导体个股与ETF", "AI and semiconductor stocks and ETFs")}</Choice>
+                    <Choice k="B">{t("相关期权机会", "Related options")}</Choice>
+                    <Choice k="C">{t("建立一份美股关注清单", "Build a US watchlist")}</Choice>
                   </div>
                   <div className="mt-2 flex items-center justify-between gap-3">
                     <p className="flex items-center gap-1.5 text-[12.5px] text-[#797c86]">
                       <Pencil size={13} />
-                      也可以直接说股票代码或具体主题
+                      {t("也可以直接说股票代码或具体主题", "Or name a ticker or a theme")}
                     </p>
-                    <span className="rounded-full border border-[#eceef2] px-3 py-1 text-[12px] text-[#797c86]">跳过</span>
+                    <span className="rounded-full border border-[#eceef2] px-3 py-1 text-[12px] text-[#797c86]">{t("跳过", "Skip")}</span>
                   </div>
                 </div>
               </div>
@@ -225,6 +229,7 @@ export function PersonalizedDemo() {
 }
 
 function Sidebar() {
+  const t = useT();
   return (
     <aside className="flex h-full w-[200px] shrink-0 flex-col border-r border-[#f1f1f1] bg-white px-2.5 pt-3.5">
       <div className="flex items-center justify-between px-1.5">
@@ -233,19 +238,19 @@ function Sidebar() {
       </div>
       <div className="my-3 h-px bg-[#eceef2]" />
       <div className="flex flex-col gap-0.5">
-        <SideItem file="sidebar-newchat.svg" turn>新对话</SideItem>
-        <SideItem bell>通知渠道</SideItem>
-        <SideItem file="sidebar-cron.svg">定时任务</SideItem>
-        <SideItem file="sidebar-skill.svg">技能</SideItem>
-        <SideItem file="sidebar-workflow.svg">连接器</SideItem>
-        <SideItem file="sidebar-accounts.svg">模拟账户</SideItem>
-        <SideItem file="sidebar-files.svg">文件</SideItem>
+        <SideItem file="sidebar-newchat.svg" turn>{t("新对话", "New chat")}</SideItem>
+        <SideItem bell>{t("通知渠道", "Alerts")}</SideItem>
+        <SideItem file="sidebar-cron.svg">{t("定时任务", "Tasks")}</SideItem>
+        <SideItem file="sidebar-skill.svg">{t("技能", "Skills")}</SideItem>
+        <SideItem file="sidebar-workflow.svg">{t("连接器", "Connectors")}</SideItem>
+        <SideItem file="sidebar-accounts.svg">{t("模拟账户", "Paper")}</SideItem>
+        <SideItem file="sidebar-files.svg">{t("文件", "Files")}</SideItem>
       </div>
       <div className="my-2.5 h-px bg-[#eceef2]" />
-      <p className="px-1.5 py-1 text-[12px] text-[#797c86]">空间</p>
-      <SideItem file="sidebar-options.svg">期权</SideItem>
+      <p className="px-1.5 py-1 text-[12px] text-[#797c86]">{t("空间", "Spaces")}</p>
+      <SideItem file="sidebar-options.svg">{t("期权", "Options")}</SideItem>
       <div className="mt-3 flex h-8 items-center px-1.5">
-        <p className="min-w-0 flex-1 text-[12px] text-[#797c86]">对话</p>
+        <p className="min-w-0 flex-1 text-[12px] text-[#797c86]">{t("对话", "Chats")}</p>
         <Glyph file="sidebar-ellipsis.svg" width={16} height={16} />
       </div>
       <p className="truncate rounded-md bg-[#f2f3f5] px-1.5 text-[13px] leading-8 text-[#101423]">Friendly Greeting</p>
@@ -290,6 +295,7 @@ function Tool({ icon, label, detail }: { icon: ReactNode; label: string; detail:
 }
 
 function FileCard({ name }: { name: string }) {
+  const t = useT();
   return (
     <div className="flex min-w-0 flex-1 items-center gap-2.5 rounded-xl border border-[#eceef2] bg-white px-3 py-2.5">
       <span className="grid size-8 place-items-center rounded-lg bg-[#fff1e8] text-[#f08a24]">
@@ -297,7 +303,7 @@ function FileCard({ name }: { name: string }) {
       </span>
       <span className="min-w-0">
         <span className="block truncate text-[13px] font-medium text-[#101423]">{name}</span>
-        <span className="block text-[12px] text-[#8b8e99]">已更新文件</span>
+        <span className="block text-[12px] text-[#8b8e99]">{t("已更新文件", "File updated")}</span>
       </span>
     </div>
   );

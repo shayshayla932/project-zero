@@ -1,4 +1,8 @@
+"use client";
+
 import type { ReactNode } from "react";
+
+import { useT } from "@/lib/locale";
 import { publicAsset } from "@/lib/public-asset";
 
 const ease = "cubic-bezier(0.22,1,0.36,1)";
@@ -17,17 +21,22 @@ function RoundButton({ children }: { children: ReactNode }) {
 
 export function ChatComposer({
   children,
-  placeholder = "聊聊投资吧 ...",
+  placeholder,
   sending = false,
 }: {
   children?: ReactNode;
   placeholder?: string;
   sending?: boolean;
 }) {
+  const t = useT();
+  const label =
+    placeholder == null || placeholder === "聊聊投资吧 ..." || placeholder === "聊聊投资吧..."
+      ? t("聊聊投资吧 ...", "Let's talk investing...")
+      : placeholder;
   return (
     <div className="flex w-full flex-col gap-[18.6px] rounded-[18.6px] border-[0.4px] border-[#f1f1f1] bg-white px-[9px] pt-3 pb-[9px] shadow-[0_4.7px_7.8px_rgba(0,0,0,0.01)]">
       <div className="min-h-[18px] px-0.5 text-[12.4px] leading-[18px]">
-        {children ?? <span className="text-[#aeb0bb]">{placeholder}</span>}
+        {children ?? <span className="text-[#aeb0bb]">{label}</span>}
       </div>
       <div className="flex items-center gap-[7.8px]">
         <div className="flex min-w-0 flex-1 items-center gap-[7.8px]">

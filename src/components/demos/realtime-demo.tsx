@@ -4,6 +4,7 @@ import { Calculator, FileText, FolderSearch, Search, Terminal, Zap } from "lucid
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 import { values } from "@/lib/content";
+import { useT } from "@/lib/locale";
 import { publicAsset } from "@/lib/public-asset";
 import { demoSpeed, followScroll, usePrefersReducedMotion } from "@/lib/use-demo-playback";
 import { cn } from "@/lib/utils";
@@ -28,28 +29,30 @@ const positions = [
 ];
 
 const tracks = [
-  { date: "2026/09/10", text: "我的备兑看涨期权快到行权价了，应该平仓还是展期？" },
-  { date: "2026/09/03", text: "帮我筛选适合卖出现金担保看跌期权的股票和行权价。" },
-  { date: "2026/08/31", text: "我的英伟达看跌期权空头仓位已经亏损 66%，应该继续持有、平仓，还是下移行权价并展期？" },
-  { date: "2026/08/20", text: "强生（JNJ）的股息安全吗？" },
-  { date: "2026/08/11", text: "CSP期权策略" },
+  { date: "2026/09/10", text: "我的备兑看涨期权快到行权价了，应该平仓还是展期？", textEn: "My covered call is near the strike. Close it or roll?" },
+  { date: "2026/09/03", text: "帮我筛选适合卖出现金担保看跌期权的股票和行权价。", textEn: "Screen stocks and strikes for cash-secured puts." },
+  { date: "2026/08/31", text: "我的英伟达看跌期权空头仓位已经亏损 66%，应该继续持有、平仓，还是下移行权价并展期？", textEn: "My short NVDA put is down 66%. Hold, close, or roll the strike down?" },
+  { date: "2026/08/20", text: "强生（JNJ）的股息安全吗？", textEn: "Is the JNJ dividend safe?" },
+  { date: "2026/08/11", text: "CSP期权策略", textEn: "Cash-secured put strategy" },
 ];
 
 const strategies = [
   {
     label: "下行保护",
+    labelEn: "Protection",
     items: [
-      { file: "chart-protective-put.svg", title: "保护性看跌期权", width: 45.7202, height: 33.8704 },
-      { file: "chart-bear-put.svg", title: "熊市看跌差价", width: 45.6661, height: 33.8632 },
-      { file: "chart-collar.svg", title: "保护性领口", width: 45.6654, height: 33.8632 },
+      { file: "chart-protective-put.svg", title: "保护性看跌期权", titleEn: "Protective put", width: 45.7202, height: 33.8704 },
+      { file: "chart-bear-put.svg", title: "熊市看跌差价", titleEn: "Bear put spread", width: 45.6661, height: 33.8632 },
+      { file: "chart-collar.svg", title: "保护性领口", titleEn: "Collar", width: 45.6654, height: 33.8632 },
     ],
   },
   {
     label: "收益增强",
+    labelEn: "Income",
     items: [
-      { file: "chart-cash-secured.svg", title: "现金担保看跌期权", width: 45.666, height: 33.8748 },
-      { file: "chart-covered-call.svg", title: "备兑看涨期权", width: 45.6661, height: 33.8748 },
-      { file: "chart-covered-strangle.svg", title: "备兑宽跨式", width: 45.6654, height: 33.8748 },
+      { file: "chart-cash-secured.svg", title: "现金担保看跌期权", titleEn: "Cash-secured put", width: 45.666, height: 33.8748 },
+      { file: "chart-covered-call.svg", title: "备兑看涨期权", titleEn: "Covered call", width: 45.6661, height: 33.8748 },
+      { file: "chart-covered-strangle.svg", title: "备兑宽跨式", titleEn: "Covered strangle", width: 45.6654, height: 33.8748 },
     ],
   },
 ];
@@ -176,6 +179,7 @@ function useTimeline(reduced: boolean) {
 }
 
 function Sidebar({ showExplore, optionsHot }: { showExplore: boolean; optionsHot: boolean }) {
+  const t = useT();
   return (
     <aside className="flex h-full w-[200px] flex-col bg-white px-2.5 pt-3.5" style={productFont}>
       <div className="flex items-center justify-between px-1.5">
@@ -185,21 +189,21 @@ function Sidebar({ showExplore, optionsHot }: { showExplore: boolean; optionsHot
       <div className="my-3 h-px bg-[#eceef2]" />
       <div className="flex flex-col gap-0.5">
         <SideItem file="sidebar-newchat.svg" turn>
-          新对话
+          {t("新对话", "New chat")}
         </SideItem>
-        <SideItem file="sidebar-cron.svg">定时更新</SideItem>
-        <SideItem file="sidebar-skill.svg">技能</SideItem>
-        <SideItem file="sidebar-workflow.svg">连接器</SideItem>
-        <SideItem file="sidebar-accounts.svg">账户</SideItem>
-        <SideItem file="sidebar-files.svg">文件</SideItem>
+        <SideItem file="sidebar-cron.svg">{t("定时更新", "Schedules")}</SideItem>
+        <SideItem file="sidebar-skill.svg">{t("技能", "Skills")}</SideItem>
+        <SideItem file="sidebar-workflow.svg">{t("连接器", "Connectors")}</SideItem>
+        <SideItem file="sidebar-accounts.svg">{t("账户", "Accounts")}</SideItem>
+        <SideItem file="sidebar-files.svg">{t("文件", "Files")}</SideItem>
       </div>
       <div className="my-2.5 h-px bg-[#eceef2]" />
-      <p className="px-1.5 py-1 text-[12px] text-[#797c86]">空间</p>
+      <p className="px-1.5 py-1 text-[12px] text-[#797c86]">{t("空间", "Spaces")}</p>
       <SideItem file="sidebar-options.svg" active={optionsHot}>
-        期权
+        {t("期权", "Options")}
       </SideItem>
       <div className="mt-3 flex h-8 items-center px-1.5">
-        <p className="min-w-0 flex-1 text-[12px] text-[#797c86]">对话</p>
+        <p className="min-w-0 flex-1 text-[12px] text-[#797c86]">{t("对话", "Chats")}</p>
         <Glyph file="sidebar-ellipsis.svg" width={16} height={16} />
       </div>
       <div
@@ -211,7 +215,7 @@ function Sidebar({ showExplore, optionsHot }: { showExplore: boolean; optionsHot
         }}
       >
         <div className="overflow-hidden">
-          <p className="truncate px-1.5 text-[13px] leading-8 text-[#101423]">财报期权机会探索</p>
+          <p className="truncate px-1.5 text-[13px] leading-8 text-[#101423]">{t("财报期权机会探索", "Earnings options")}</p>
         </div>
       </div>
       <p className="truncate px-1.5 text-[13px] leading-8 text-[#101423]">VYM vs SCHD</p>
@@ -281,17 +285,18 @@ function ScaledCanvas({
 }
 
 function OptionHero({ zoomed }: { zoomed: boolean }) {
+  const t = useT();
   return (
     <div className="flex h-full flex-col items-center justify-center gap-5 overflow-clip bg-[#f7f7f8] px-8" style={productFont}>
-        <p className="text-[17.5px] font-medium text-black">Hi, 你的投资团队已就位</p>
+        <p className="text-[17.5px] font-medium text-black">{t("Hi, 你的投资团队已就位", "Your investment team is ready")}</p>
         <Composer />
         <div className="flex w-full flex-col gap-1.5">
           <div className="flex items-center">
-            <p className="text-[12.2px] leading-[18px] font-medium text-[#101423]">Driven 期权</p>
+            <p className="text-[12.2px] leading-[18px] font-medium text-[#101423]">{t("Driven 期权", "Driven Options")}</p>
             <Caret />
           </div>
           <div className="flex items-center gap-1 text-[10.5px] text-[#797c86]">
-            <p>发现期权机会、对比策略，做出更有依据的决策。 详情</p>
+            <p>{t("发现期权机会、对比策略，做出更有依据的决策。 详情", "Find ideas, compare strategies, and decide with the data. Details")}</p>
             <span className="inline-flex -rotate-90">
               <Glyph file="chevron-detail.svg" width={9.31738} height={9.31738} />
             </span>
@@ -299,27 +304,27 @@ function OptionHero({ zoomed }: { zoomed: boolean }) {
         </div>
         <div className="w-full rounded-[10.5px] border-[0.5px] border-[#f1f1f1] bg-white pt-2 pb-3.5">
           <div className="flex items-center gap-[7px] border-b-[0.5px] border-[#f1f1f1] px-3">
-            <Tab active>期权机会</Tab>
-            <Tab>收益增强</Tab>
-            <Tab>下行保护</Tab>
+            <Tab active>{t("期权机会", "Ideas")}</Tab>
+            <Tab>{t("收益增强", "Income")}</Tab>
+            <Tab>{t("下行保护", "Protection")}</Tab>
           </div>
           <Opportunity
             icon="icon-0dte.svg"
-            title="扫描 0DET 期权"
-            body="发现潜在的当日期权机会。"
+            title={t("扫描 0DET 期权", "Scan 0DTE options")}
+            body={t("发现潜在的当日期权机会。", "Surface same-day options ideas.")}
           />
           <Hairline />
           <Opportunity
             icon="icon-activity.svg"
-            title="市场大单期权异动信号"
-            body="发现异常成交量和可能重要的交易。"
+            title={t("市场大单期权异动信号", "Unusual options flow")}
+            body={t("发现异常成交量和可能重要的交易。", "Large prints and unusual volume.")}
           />
           <Hairline />
           <div data-zoom-row>
             <Opportunity
               icon="icon-file.svg"
-              title="财报期权分析"
-              body="探索即将发布财报的公司周边的期权机会。"
+              title={t("财报期权分析", "Earnings options")}
+              body={t("探索即将发布财报的公司周边的期权机会。", "Options around upcoming earnings.")}
               pressed={zoomed}
             />
           </div>
@@ -329,9 +334,10 @@ function OptionHero({ zoomed }: { zoomed: boolean }) {
 }
 
 function Composer() {
+  const t = useT();
   return (
     <div className="flex w-full flex-col gap-[18.6px] rounded-[18.6px] border-[0.4px] border-[#f1f1f1] bg-white px-[9px] pt-3 pb-[9px] shadow-[0_4.7px_7.8px_rgba(0,0,0,0.01)]">
-      <p className="px-0.5 text-[12.4px] text-[#aeb0bb]">聊聊投资吧 ...</p>
+      <p className="px-0.5 text-[12.4px] text-[#aeb0bb]">{t("聊聊投资吧 ...", "Let's talk investing...")}</p>
       <div className="flex items-center gap-[7.8px]">
         <div className="flex min-w-0 flex-1 items-center gap-[7.8px]">
           <RoundButton>
@@ -422,6 +428,7 @@ function Hairline() {
 }
 
 function ChatPanel({ active, showResult }: { active: boolean; showResult: boolean }) {
+  const t = useT();
   const revealed = useReveal(toolRows.length, 340, active);
   const [pointer, setPointer] = useState(false);
   const [hover, setHover] = useState(false);
@@ -471,7 +478,7 @@ function ChatPanel({ active, showResult }: { active: boolean; showResult: boolea
             <Glyph file="zap-green.svg" width={12} height={12.3} />
             earnings-option-opportu…
           </span>
-          <span className="ml-2 align-middle text-[14px] text-[#101423]">探索即将发布财报前后的期权机会。</span>
+          <span className="ml-2 align-middle text-[14px] text-[#101423]">{t("探索即将发布财报前后的期权机会。", "Look at options around upcoming earnings.")}</span>
         </div>
         <div className="mt-5">
           {toolRows.map((row, index) => {
@@ -491,9 +498,9 @@ function ChatPanel({ active, showResult }: { active: boolean; showResult: boolea
                   <div className="flex items-start gap-2 pb-3 text-[14px] leading-6 text-[#aeb0bb]">
                     <ToolGlyph name={row.icon} />
                     <p className="min-w-0">
-                      <span>{row.label}</span>
+                      <span>{t(row.label, row.labelEn)}</span>
                       <span> › </span>
-                      <span className="break-words">{row.detail}</span>
+                      <span className="break-words">{t(row.detail, row.detailEn)}</span>
                     </p>
                   </div>
                 </div>
@@ -509,23 +516,30 @@ function ChatPanel({ active, showResult }: { active: boolean; showResult: boolea
 }
 
 function EarningsTable({ pointer, hover }: { pointer: boolean; hover: boolean }) {
+  const t = useT();
   return (
     <div data-earnings className="relative mt-6">
-      <p className="text-[16px] font-medium text-[#101423]">美股财报期权初筛</p>
+      <p className="text-[16px] font-medium text-[#101423]">{t("美股财报期权初筛", "US earnings-options screen")}</p>
       <p className="mt-3 text-[14px] leading-7 text-[#3c404c]">
-        扫描窗口为 2026-10-08 至 2026-10-21：日历返回194条记录，按公司名称去重后为189家公司，其中194条未标记为已发布或已完成。优先名单5家，均找到覆盖财报及首次常规交易时段反应的到期日5家；深入检查期权链3家，流动性门槛通过3家，最终列出有限风险结构2个。
+        {t(
+          "扫描窗口为 2026-10-08 至 2026-10-21：日历返回194条记录，按公司名称去重后为189家公司，其中194条未标记为已发布或已完成。优先名单5家，均找到覆盖财报及首次常规交易时段反应的到期日5家；深入检查期权链3家，流动性门槛通过3家，最终列出有限风险结构2个。",
+          "Window 2026-10-08 to 2026-10-21: 194 calendar rows, 189 companies after dedupe, 194 not marked reported. Five names made the shortlist, all with an expiry covering the print and the first regular-session reaction. Three chains were checked, three passed the liquidity screen, and two defined-risk structures were listed."
+        )}
       </p>
       <p className="mt-3 text-[14px] leading-7 text-[#3c404c]">
-        现货与期权数据是最近可见的 10 月 7 日美股交易时段报价，不是 10 月 8 日盘中的实时成交；期权时间戳以 UTC 列示。
+        {t(
+          "现货与期权数据是最近可见的 10 月 7 日美股交易时段报价，不是 10 月 8 日盘中的实时成交；期权时间戳以 UTC 列示。",
+          "Stock and option quotes are the latest visible regular-session prints from October 7, not live October 8 trades. Option timestamps are in UTC."
+        )}
       </p>
-      <p className="mt-5 text-[16px] font-medium text-[#101423]">优先名单与到期日</p>
+      <p className="mt-5 text-[16px] font-medium text-[#101423]">{t("优先名单与到期日", "Shortlist and expiries")}</p>
       <div className="relative mt-3 overflow-visible rounded-xl border border-[#f1f1f1] bg-white">
         <table className="w-full text-left text-[13px]">
           <thead className="bg-[#f7f7f7] text-[#797c86]">
             <tr>
-              <th className="px-4 py-2.5 font-normal">公司</th>
-              <th className="px-4 py-2.5 font-normal">日历所列财报时间</th>
-              <th className="px-4 py-2.5 font-normal">覆盖财报反应的最短已验证到期日</th>
+              <th className="px-4 py-2.5 font-normal">{t("公司", "Company")}</th>
+              <th className="px-4 py-2.5 font-normal">{t("日历所列财报时间", "Listed earnings time")}</th>
+              <th className="px-4 py-2.5 font-normal">{t("覆盖财报反应的最短已验证到期日", "Shortest verified expiry")}</th>
             </tr>
           </thead>
           <tbody className="text-[#101423]">
@@ -533,7 +547,7 @@ function EarningsTable({ pointer, hover }: { pointer: boolean; hover: boolean })
               <tr key={row.symbol}>
                 <td className="px-4 py-3">{row.symbol}</td>
                 <td className="px-4 py-3 text-[#2694ff] underline decoration-dotted decoration-[#2694ff] underline-offset-4">
-                  {row.when}
+                  {t(row.when, row.whenEn)}
                 </td>
                 <td className="px-4 py-3 text-[#797c86] underline decoration-dotted underline-offset-4">{row.expiry}</td>
               </tr>
@@ -564,28 +578,29 @@ function Cursor() {
 }
 
 function CitationCard() {
+  const t = useT();
   return (
     <aside className="absolute top-[58px] left-[76px] z-10 w-max rounded-2xl bg-white px-3.5 py-3 shadow-[0_10px_28px_rgba(16,20,35,0.14)]">
       <div className="flex items-center gap-1.5 text-[14px] font-medium text-[#101423]">
         <Glyph file="cite-terminal.svg" width={14} height={14} />
-        终端
+        {t("终端", "Terminal")}
       </div>
       <div className="mt-2.5 rounded-[10px] bg-[#f3f4f6] px-2.5 py-2 text-[12.5px] leading-5 text-[#8d919c]">
         <p className="whitespace-nowrap">
-          DAL 达美航空 <span className="font-semibold text-[#101423]">2026-10-09</span> 三季报 2026 pre_hour pre_ma
+          {t("DAL 达美航空", "DAL Delta Air Lines")} <span className="font-semibold text-[#101423]">2026-10-09</span> {t("三季报", "Q3")} 2026 pre_hour pre_ma
         </p>
         <p className="whitespace-nowrap">
-          rket JNJ 强生 <span className="font-semibold text-[#101423]">2026-10-13</span> 三季报 2026 pre_hour pre_ma
+          rket {t("JNJ 强生", "JNJ Johnson & Johnson")} <span className="font-semibold text-[#101423]">2026-10-13</span> {t("三季报", "Q3")} 2026 pre_hour pre_ma
         </p>
         <p className="whitespace-nowrap">
-          rket JPM 摩根大通 <span className="font-semibold text-[#101423]">2026-10-13</span> 三季报 2026 pre_hour pr…
+          rket {t("JPM 摩根大通", "JPM JPMorgan")} <span className="font-semibold text-[#101423]">2026-10-13</span> {t("三季报", "Q3")} 2026 pre_hour pr…
         </p>
       </div>
-      <p className="mt-2.5 text-[13px] text-[#101423]">该数值由模型计算得出。</p>
+      <p className="mt-2.5 text-[13px] text-[#101423]">{t("该数值由模型计算得出。", "The model calculated this figure.")}</p>
       <div className="my-2.5 h-px bg-[#eceef2]" />
       <div className="flex items-center gap-2 text-[13px] text-[#101423]">
-        <span className="rounded-full bg-[#e7f3ff] px-2 py-0.5 text-[12px] text-[#2694ff]">来源</span>
-        <span className="min-w-0 flex-1 pr-6">数据来自计算</span>
+        <span className="rounded-full bg-[#e7f3ff] px-2 py-0.5 text-[12px] text-[#2694ff]">{t("来源", "Source")}</span>
+        <span className="min-w-0 flex-1 pr-6">{t("数据来自计算", "From a calculation")}</span>
         <Glyph file="cite-chevron.svg" width={13.512} height={13.512} />
       </div>
     </aside>
@@ -593,24 +608,24 @@ function CitationCard() {
 }
 
 const picks = [
-  { symbol: "DAL", when: "2026-10-09，盘前", expiry: "2026-10-09" },
-  { symbol: "JNJ", when: "2026-10-13，盘前", expiry: "2026-10-16" },
-  { symbol: "JPM", when: "2026-10-13，盘前", expiry: "2026-10-16" },
-  { symbol: "NFLX", when: "2026-10-20，盘后", expiry: "2026-10-23" },
-  { symbol: "TSLA", when: "2026-10-21，盘后", expiry: "2026-10-23" },
+  { symbol: "DAL", when: "2026-10-09，盘前", whenEn: "2026-10-09, premarket", expiry: "2026-10-09" },
+  { symbol: "JNJ", when: "2026-10-13，盘前", whenEn: "2026-10-13, premarket", expiry: "2026-10-16" },
+  { symbol: "JPM", when: "2026-10-13，盘前", whenEn: "2026-10-13, premarket", expiry: "2026-10-16" },
+  { symbol: "NFLX", when: "2026-10-20，盘后", whenEn: "2026-10-20, after hours", expiry: "2026-10-23" },
+  { symbol: "TSLA", when: "2026-10-21，盘后", whenEn: "2026-10-21, after hours", expiry: "2026-10-23" },
 ];
 
-const toolRows: { icon: ToolName; label: string; detail: string }[] = [
-  { icon: "zap", label: "加载技能", detail: '{"name":"earnings-option-opportunities"}' },
-  { icon: "search", label: "搜索工具", detail: "earnings calendar expiration dates option chain detailed option quotes" },
-  { icon: "data", label: "Driven Data · calendar.earnings-calendar", detail: '{"market":"US","from":"2026-10-08","to":"2026-10-21"}' },
-  { icon: "file", label: "读取文件", detail: "/.driven/sessions/chat/main/fj750b7nxldwscf4e52eum2f/toolsResult/tool-call-1791449360019-tg7s7t.json" },
-  { icon: "files", label: "搜索文件", detail: "2 次" },
-  { icon: "file", label: "读取文件", detail: "/.driven/sessions/chat/main/fj750b7nxldwscf4e52eum2f/toolsResult/grep-1791449381313-kze168.txt" },
-  { icon: "zap", label: "加载技能", detail: '{"name":"data-lab"}' },
-  { icon: "terminal", label: "终端", detail: "2 次" },
-  { icon: "data", label: "Driven Data", detail: "11 次" },
-  { icon: "calc", label: "计算依据", detail: '{"calculations":[{"id":"tsla_min","label":"TSLA lower strike...' },
+const toolRows: { icon: ToolName; label: string; labelEn: string; detail: string; detailEn: string }[] = [
+  { icon: "zap", label: "加载技能", labelEn: "Load skill", detail: '{"name":"earnings-option-opportunities"}', detailEn: '{"name":"earnings-option-opportunities"}' },
+  { icon: "search", label: "搜索工具", labelEn: "Search tools", detail: "earnings calendar expiration dates option chain detailed option quotes", detailEn: "earnings calendar expiration dates option chain detailed option quotes" },
+  { icon: "data", label: "Driven Data · calendar.earnings-calendar", labelEn: "Driven Data · calendar.earnings-calendar", detail: '{"market":"US","from":"2026-10-08","to":"2026-10-21"}', detailEn: '{"market":"US","from":"2026-10-08","to":"2026-10-21"}' },
+  { icon: "file", label: "读取文件", labelEn: "Read file", detail: "/.driven/sessions/chat/main/fj750b7nxldwscf4e52eum2f/toolsResult/tool-call-1791449360019-tg7s7t.json", detailEn: "/.driven/sessions/chat/main/fj750b7nxldwscf4e52eum2f/toolsResult/tool-call-1791449360019-tg7s7t.json" },
+  { icon: "files", label: "搜索文件", labelEn: "Search files", detail: "2 次", detailEn: "2 times" },
+  { icon: "file", label: "读取文件", labelEn: "Read file", detail: "/.driven/sessions/chat/main/fj750b7nxldwscf4e52eum2f/toolsResult/grep-1791449381313-kze168.txt", detailEn: "/.driven/sessions/chat/main/fj750b7nxldwscf4e52eum2f/toolsResult/grep-1791449381313-kze168.txt" },
+  { icon: "zap", label: "加载技能", labelEn: "Load skill", detail: '{"name":"data-lab"}', detailEn: '{"name":"data-lab"}' },
+  { icon: "terminal", label: "终端", labelEn: "Terminal", detail: "2 次", detailEn: "2 times" },
+  { icon: "data", label: "Driven Data", labelEn: "Driven Data", detail: "11 次", detailEn: "11 times" },
+  { icon: "calc", label: "计算依据", labelEn: "Calculation", detail: '{"calculations":[{"id":"tsla_min","label":"TSLA lower strike...', detailEn: '{"calculations":[{"id":"tsla_min","label":"TSLA lower strike...' },
 ];
 
 type ToolName = "zap" | "search" | "data" | "file" | "files" | "terminal" | "calc";
@@ -631,6 +646,7 @@ function ToolGlyph({ name }: { name: ToolName }) {
 }
 
 function OptionsSpace({ active, instant }: { active: boolean; instant: boolean }) {
+  const t = useT();
   const view = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const sheet = useRef<HTMLDivElement>(null);
@@ -679,11 +695,11 @@ function OptionsSpace({ active, instant }: { active: boolean; instant: boolean }
           className="relative flex flex-col gap-2 px-4 py-3"
           style={{ transform: `translateY(-${offset}px)`, transition: `transform 800ms ${ease}` }}
         >
-          <h3 className="text-[14px] font-semibold text-black">期权</h3>
+          <h3 className="text-[14px] font-semibold text-black">{t("期权", "Options")}</h3>
           <div className="flex flex-col gap-[8.8px]">
             <div className="flex items-center gap-2">
-              <p className="min-w-0 flex-1 text-[9.9px] font-medium text-[#101423]">持仓</p>
-              <p className="text-[7.7px] text-[#797c86]">当前 MCP</p>
+              <p className="min-w-0 flex-1 text-[9.9px] font-medium text-[#101423]">{t("持仓", "Positions")}</p>
+              <p className="text-[7.7px] text-[#797c86]">{t("当前 MCP", "Current MCP")}</p>
               <span className="inline-flex items-center gap-1">
                 <span className="relative size-[8.8px] overflow-hidden rounded-full border-[0.55px] border-[#fafafa]">
                   <img
@@ -692,10 +708,10 @@ function OptionsSpace({ active, instant }: { active: boolean; instant: boolean }
                     className="absolute top-[-14.58%] left-[-23.96%] h-[135.42%] w-[147.92%] max-w-none"
                   />
                 </span>
-                <span className="text-[6.6px] text-[#101423]">盈透证券</span>
+                <span className="text-[6.6px] text-[#101423]">{t("盈透证券", "IBKR")}</span>
               </span>
               <span className="inline-flex items-center gap-0.5 text-[7.7px] text-[#797c86]">
-                13:23:36 更新
+                {t("13:23:36 更新", "Updated 13:23:36")}
                 <Glyph file="refresh.svg" width={8.80277} height={8.80277} />
               </span>
             </div>
@@ -704,10 +720,10 @@ function OptionsSpace({ active, instant }: { active: boolean; instant: boolean }
                 className="grid h-[20.4px] items-center gap-[8.8px] bg-[#f1f1f1] px-[4.4px] text-[#797c86]"
                 style={{ gridTemplateColumns: positionColumns }}
               >
-                <span>期权合约</span>
-                <span className="text-right">数量</span>
-                <span className="text-right">均价 / 当前买卖报价</span>
-                <span className="text-right">相对 Strike</span>
+                <span>{t("期权合约", "Contract")}</span>
+                <span className="text-right">{t("数量", "Qty")}</span>
+                <span className="text-right">{t("均价 / 当前买卖报价", "Avg / quote")}</span>
+                <span className="text-right">{t("相对 Strike", "vs strike")}</span>
                 <span className="text-right">Delta</span>
                 <span className="text-right">Theta</span>
                 <span className="text-right">IV</span>
@@ -731,31 +747,31 @@ function OptionsSpace({ active, instant }: { active: boolean; instant: boolean }
                 icon="icon-legs.svg"
                 iconWidth={9.89569}
                 iconHeight={9.89569}
-                title="逐腿分析"
-                body="评估每条期权腿的风险、希腊值、收益结构，以及它对整体策略的贡献。"
+                title={t("逐腿分析", "Leg analysis")}
+                body={t("评估每条期权腿的风险、希腊值、收益结构，以及它对整体策略的贡献。", "Risk, Greeks, and payoff for each leg, and what it adds to the strategy.")}
               />
               <InfoCard
                 icon="icon-grid.svg"
                 iconWidth={9.89569}
                 iconHeight={9.89569}
-                title="组合分析"
-                body="了解你的投资组合在全部持仓上的综合敞口、表现与风险。"
+                title={t("组合分析", "Portfolio")}
+                body={t("了解你的投资组合在全部持仓上的综合敞口、表现与风险。", "Exposure, performance, and risk across the whole book.")}
               />
               <InfoCard
                 icon="icon-scan.svg"
                 iconWidth={9.89024}
                 iconHeight={9.90115}
-                title="交易复盘"
-                body="复盘交易决策与结果，提炼洞察，提升今后的交易表现。"
+                title={t("交易复盘", "Trade review")}
+                body={t("复盘交易决策与结果，提炼洞察，提升今后的交易表现。", "Review decisions and results, then keep what worked.")}
               />
             </div>
           </div>
 
           <div className="flex flex-col gap-[8.8px]">
-            <p className="text-[9.9px] font-medium text-[#101423]">策略</p>
+            <p className="text-[9.9px] font-medium text-[#101423]">{t("策略", "Strategies")}</p>
             {strategies.map((group) => (
               <div key={group.label} className="flex flex-col gap-[8.8px]">
-                <p className="text-[7.7px] text-[#797c86]">{group.label}</p>
+                <p className="text-[7.7px] text-[#797c86]">{t(group.label, group.labelEn)}</p>
                 <div className="grid grid-cols-3 gap-[4.4px]">
                   {group.items.map((item) => (
                     <div
@@ -765,7 +781,7 @@ function OptionsSpace({ active, instant }: { active: boolean; instant: boolean }
                       <Glyph file={item.file} width={item.width} height={item.height} />
                       <span className="inline-flex min-w-0 items-center">
                         <span className="text-[7.7px] leading-[11.6px] font-medium text-[#101423]">
-                          {item.title}
+                          {t(item.title, item.titleEn)}
                         </span>
                         <Glyph file="chevron-strategy.svg" width={6.77981} height={6.60572} />
                       </span>
@@ -778,16 +794,16 @@ function OptionsSpace({ active, instant }: { active: boolean; instant: boolean }
 
           <div ref={track} className="flex flex-col gap-[8.8px]">
             <div className="flex items-center">
-              <p className="min-w-0 flex-1 text-[9.9px] font-medium text-[#101423]">期权追踪</p>
+              <p className="min-w-0 flex-1 text-[9.9px] font-medium text-[#101423]">{t("期权追踪", "Options tracker")}</p>
               <span className="inline-flex items-center gap-0.5 rounded-full bg-[#edf6ff] px-[4.4px] py-px text-[6.6px] text-[#2694ff]">
                 <Glyph file="icon-weekly.svg" width={8.81248} height={8.81248} />
-                每周总结
+                {t("每周总结", "Weekly")}
               </span>
             </div>
             <div className="overflow-hidden rounded-[6.6px] border-[0.275px] border-[#f1f1f1] bg-white py-[6.6px]">
               <TrackRow
                 date="2026/10/08"
-                text="财报期权机会探索"
+                text={t("财报期权机会探索", "Earnings options")}
                 className={cn(
                   "origin-top transition-all duration-500",
                   born ? "h-[20.4px] opacity-100" : "pointer-events-none h-0 overflow-hidden py-0 opacity-0"
@@ -795,7 +811,7 @@ function OptionsSpace({ active, instant }: { active: boolean; instant: boolean }
                 highlight={born}
               />
               {tracks.map((item) => (
-                <TrackRow key={item.date + item.text} date={item.date} text={item.text} />
+                <TrackRow key={item.date + item.text} date={item.date} text={t(item.text, item.textEn)} />
               ))}
             </div>
           </div>

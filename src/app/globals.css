@@ -154,6 +154,15 @@
   background-size: 180px 180px;
 }
 
+html.module-embed,
+html.module-embed body {
+  background: #ffffff;
+}
+
+html.module-embed #site {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

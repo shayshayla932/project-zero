@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 
 import { site } from "@/lib/content";
 import { publicAsset } from "@/lib/public-asset";
@@ -45,7 +46,12 @@ export default function RootLayout({
       className={`${geist.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background font-sans text-foreground">
-        {children}
+        <Script id="module-embed" strategy="beforeInteractive">
+          {`try{if(/[?&]module=(realtime|professional|proactive|personalized)(?:&|$)/.test(location.search))document.documentElement.classList.add("module-embed")}catch(e){}`}
+        </Script>
+        <div id="site" className="flex min-h-full flex-1 flex-col">
+          {children}
+        </div>
       </body>
     </html>
   );

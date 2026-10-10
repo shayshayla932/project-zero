@@ -4,22 +4,22 @@ import { Calculator, Clock, FileText, Search, Terminal, UserRound, Zap } from "l
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 import { AgentRow, ChatComposer, StreamBlock, UserBubble } from "@/components/demos/chat-chrome";
+import { useLocale, useT } from "@/lib/locale";
 import { publicAsset } from "@/lib/public-asset";
 import { demoSpeed, followScroll, usePrefersReducedMotion } from "@/lib/use-demo-playback";
 import { cn } from "@/lib/utils";
 
 const FRAME_W = 960;
 const FRAME_H = 640;
-const PROMPT = "请诊断我的账户，相关性、历史回撤、波动和各持仓的风险贡献，给我仓位调整建议";
+const PROMPT_ZH = "请诊断我的账户，相关性、历史回撤、波动和各持仓的风险贡献，给我仓位调整建议";
+const PROMPT_EN = "Diagnose my account: correlation, historical drawdown, volatility, and each holding's risk contribution. Then suggest position changes.";
+const ORDER_ZH = "帮我下单 20 股 JNJ";
+const ORDER_EN = "Buy 20 shares of JNJ";
+const DONE_ZH = "已向 USD Account 账户提交 JNJ 20 股市价买单（GTC）。";
+const DONE_EN = "Submitted a GTC market buy for 20 shares of JNJ in the USD Account.";
 const CHAR_MS = 24;
 const TYPE_START = 7600;
-const TYPE_END = TYPE_START + PROMPT.length * CHAR_MS;
-const SEND_AT = TYPE_END + 520;
-const THREAD_AT = SEND_AT + 240;
-const TOOLS_AT = THREAD_AT + 180;
 const TOOL_STEP = 110;
-const ADVICE_AT = TOOLS_AT + 6 * TOOL_STEP + 220;
-const ORDER = "帮我下单 20 股 JNJ";
 const ORDER_CHAR = 28;
 const cardShadow = "0 24px 60px rgba(22, 28, 45, 0.07), 0 2px 8px rgba(22, 28, 45, 0.04)";
 
@@ -70,32 +70,39 @@ function ui(file: string) {
 }
 
 const toolRows = [
-  { kind: "skill", label: "加载技能", detail: '{"name":"portfolio-monitor"}' },
-  { kind: "ask", label: "提问", detail: "" },
-  { kind: "account", label: "account", detail: '{"action":"positions","accountId":"oci8ow7y535kyrbr2d4fgnkg"...' },
-  { kind: "driven", label: "Driven Data", detail: "11 次" },
-  { kind: "term", label: "终端", detail: `print '%s' {"schemaVersion":1,"holdings":[{"symbol":"AAPL"...` },
-  { kind: "file", label: "读取文件", detail: "3 次" },
+  { kind: "skill", label: "加载技能", labelEn: "Load skill", detail: '{"name":"portfolio-monitor"}', detailEn: '{"name":"portfolio-monitor"}' },
+  { kind: "ask", label: "提问", labelEn: "Ask", detail: "", detailEn: "" },
+  { kind: "account", label: "account", labelEn: "account", detail: '{"action":"positions","accountId":"oci8ow7y535kyrbr2d4fgnkg"...', detailEn: '{"action":"positions","accountId":"oci8ow7y535kyrbr2d4fgnkg"...' },
+  { kind: "driven", label: "Driven Data", labelEn: "Driven Data", detail: "11 次", detailEn: "11 times" },
+  { kind: "term", label: "终端", labelEn: "Terminal", detail: `print '%s' {"schemaVersion":1,"holdings":[{"symbol":"AAPL"...`, detailEn: `print '%s' {"schemaVersion":1,"holdings":[{"symbol":"AAPL"...` },
+  { kind: "file", label: "读取文件", labelEn: "Read file", detail: "3 次", detailEn: "3 times" },
 ] as const;
 
 const REPLY_BEAT = 780;
 const REPLY_STEPS = 4;
-const ORDER_START = ADVICE_AT + REPLY_STEPS * REPLY_BEAT + 520;
-const DONE_TEXT = "已向 USD Account 账户提交 JNJ 20 股市价买单（GTC）。";
-const ORDER_END = ORDER_START + ORDER.length * ORDER_CHAR;
-const ORDER_SEND = ORDER_END + 280;
-const ORDER_AT = ORDER_SEND + 200;
-const ORDER_TOOLS_AT = ORDER_AT + 140;
-const CONFIRM_AT = ORDER_TOOLS_AT + 3 * TOOL_STEP + 180;
-const CHOOSE_AT = CONFIRM_AT + 900;
-const DONE_AT = CHOOSE_AT + 700;
-const EXIT_AT = DONE_AT + DONE_TEXT.length * 18 + 1600;
-const LOOP = EXIT_AT + 700;
+
+function clockFor(prompt: string, order: string, done: string) {
+  const TYPE_END = TYPE_START + prompt.length * CHAR_MS;
+  const SEND_AT = TYPE_END + 520;
+  const THREAD_AT = SEND_AT + 240;
+  const TOOLS_AT = THREAD_AT + 180;
+  const ADVICE_AT = TOOLS_AT + 6 * TOOL_STEP + 220;
+  const ORDER_START = ADVICE_AT + REPLY_STEPS * REPLY_BEAT + 520;
+  const ORDER_END = ORDER_START + order.length * ORDER_CHAR;
+  const ORDER_AT = ORDER_END + 280 + 200;
+  const ORDER_TOOLS_AT = ORDER_AT + 140;
+  const CONFIRM_AT = ORDER_TOOLS_AT + 3 * TOOL_STEP + 180;
+  const CHOOSE_AT = CONFIRM_AT + 900;
+  const DONE_AT = CHOOSE_AT + 700;
+  const EXIT_AT = DONE_AT + done.length * 18 + 1600;
+  const LOOP = EXIT_AT + 700;
+  return { TYPE_END, SEND_AT, THREAD_AT, TOOLS_AT, ADVICE_AT, ORDER_START, ORDER_END, ORDER_AT, ORDER_TOOLS_AT, CONFIRM_AT, CHOOSE_AT, DONE_AT, EXIT_AT, LOOP };
+}
 
 const orderRows = [
-  { kind: "driven", label: "Driven Data · 行情", detail: '{"symbols":["JNJ"],"includeExtended":false,"fields":["previo...' },
-  { kind: "account", label: "account", detail: '{"action":"summary","accountId":"oci8ow7y535kyrbr2d4fgnkg",...' },
-  { kind: "calc", label: "计算依据", detail: '{"calculations":[{"id":"jnj_order_estimate","label":"Estimat...' },
+  { kind: "driven", label: "Driven Data · 行情", labelEn: "Driven Data · quotes", detail: '{"symbols":["JNJ"],"includeExtended":false,"fields":["previo...', detailEn: '{"symbols":["JNJ"],"includeExtended":false,"fields":["previo...' },
+  { kind: "account", label: "account", labelEn: "account", detail: '{"action":"summary","accountId":"oci8ow7y535kyrbr2d4fgnkg",...', detailEn: '{"action":"summary","accountId":"oci8ow7y535kyrbr2d4fgnkg",...' },
+  { kind: "calc", label: "计算依据", labelEn: "Calculation", detail: '{"calculations":[{"id":"jnj_order_estimate","label":"Estimat...', detailEn: '{"calculations":[{"id":"jnj_order_estimate","label":"Estimat...' },
 ] as const;
 
 type ToolKind = "skill" | "ask" | "account" | "driven" | "term" | "file" | "search" | "calc";
@@ -116,16 +123,16 @@ type Phase =
   | "done"
   | "exit";
 
-function phaseAt(now: number): Phase {
-  if (now >= EXIT_AT) return "exit";
-  if (now >= DONE_AT) return "done";
-  if (now >= CHOOSE_AT) return "choose";
-  if (now >= CONFIRM_AT) return "confirm";
-  if (now >= ORDER_AT) return "order";
-  if (now >= ORDER_START) return "ask";
-  if (now >= ADVICE_AT) return "advice";
-  if (now >= THREAD_AT) return "thread";
-  if (now >= SEND_AT) return "send";
+function phaseAt(now: number, mark: ReturnType<typeof clockFor>): Phase {
+  if (now >= mark.EXIT_AT) return "exit";
+  if (now >= mark.DONE_AT) return "done";
+  if (now >= mark.CHOOSE_AT) return "choose";
+  if (now >= mark.CONFIRM_AT) return "confirm";
+  if (now >= mark.ORDER_AT) return "order";
+  if (now >= mark.ORDER_START) return "ask";
+  if (now >= mark.ADVICE_AT) return "advice";
+  if (now >= mark.THREAD_AT) return "thread";
+  if (now >= mark.SEND_AT) return "send";
   if (now >= 7800) return "home";
   if (now >= 5600) return "connected";
   if (now >= 3400) return "modal";
@@ -137,16 +144,20 @@ const threadPhases: Phase[] = ["thread", "advice", "ask", "order", "confirm", "c
 
 export function ProfessionalDemo() {
   const reduced = usePrefersReducedMotion();
-  const snap = useClock(reduced);
+  const t = useT();
+  const prompt = t(PROMPT_ZH, PROMPT_EN);
+  const orderText = t(ORDER_ZH, ORDER_EN);
+  const doneText = t(DONE_ZH, DONE_EN);
+  const snap = useClock(reduced, prompt, orderText, doneText);
   const phase: Phase = reduced ? "done" : snap.phase;
-  const typed = reduced ? PROMPT.length : snap.typed;
+  const typed = reduced ? prompt.length : snap.typed;
   const pressed = phase === "press";
   const modal = phase === "modal";
   const chat = phase === "home" || phase === "send" || threadPhases.includes(phase);
   const thread = threadPhases.includes(phase);
   const toolCount = reduced ? toolRows.length : snap.tools;
   const replyStep = reduced ? REPLY_STEPS : snap.replyStep;
-  const orderTyped = reduced ? ORDER.length : snap.orderTyped;
+  const orderTyped = reduced ? orderText.length : snap.orderTyped;
   const orderTools = reduced ? orderRows.length : snap.orderTools;
   const order = phase === "order" || phase === "confirm" || phase === "choose" || phase === "done";
   const confirm = phase === "confirm" || phase === "choose" || phase === "done";
@@ -172,12 +183,15 @@ export function ProfessionalDemo() {
                 confirm={confirm}
                 chosen={chosen}
                 done={done}
-                doneChars={reduced ? DONE_TEXT.length : snap.doneChars}
-                draft={phase === "ask" ? ORDER.slice(0, orderTyped) : ""}
-                sending={phase === "ask" && orderTyped === ORDER.length}
+                doneChars={reduced ? doneText.length : snap.doneChars}
+                draft={phase === "ask" ? orderText.slice(0, orderTyped) : ""}
+                sending={phase === "ask" && orderTyped === orderText.length}
+                prompt={prompt}
+                orderText={orderText}
+                doneText={doneText}
               />
             ) : (
-              <DiagnosisHome typed={typed} sending={phase === "send"} />
+              <DiagnosisHome typed={typed} sending={phase === "send"} prompt={prompt} />
             )
           ) : (
             <>
@@ -197,6 +211,7 @@ export function ProfessionalDemo() {
 }
 
 function Sidebar() {
+  const t = useT();
   return (
     <aside className="flex h-full w-[200px] shrink-0 flex-col border-r border-[#f1f1f1] bg-white px-2.5 pt-3.5">
       <div className="flex items-center justify-between px-1.5">
@@ -206,27 +221,27 @@ function Sidebar() {
       <div className="my-3 h-px bg-[#eceef2]" />
       <div className="flex flex-col gap-0.5">
         <SideItem file="sidebar-newchat.svg" turn>
-          新对话
+          {t("新对话", "New chat")}
         </SideItem>
-        <SideItem file="sidebar-cron.svg">定时任务</SideItem>
-        <SideItem file="sidebar-skill.svg">技能</SideItem>
+        <SideItem file="sidebar-cron.svg">{t("定时任务", "Tasks")}</SideItem>
+        <SideItem file="sidebar-skill.svg">{t("技能", "Skills")}</SideItem>
         <SideItem file="sidebar-workflow.svg" active>
-          连接器
+          {t("连接器", "Connectors")}
         </SideItem>
-        <SideItem file="sidebar-accounts.svg">模拟账户</SideItem>
-        <SideItem file="sidebar-files.svg">文件</SideItem>
+        <SideItem file="sidebar-accounts.svg">{t("模拟账户", "Paper")}</SideItem>
+        <SideItem file="sidebar-files.svg">{t("文件", "Files")}</SideItem>
       </div>
       <div className="my-2.5 h-px bg-[#eceef2]" />
-      <p className="px-1.5 py-1 text-[12px] text-[#797c86]">空间</p>
-      <SideItem file="sidebar-options.svg">期权</SideItem>
+      <p className="px-1.5 py-1 text-[12px] text-[#797c86]">{t("空间", "Spaces")}</p>
+      <SideItem file="sidebar-options.svg">{t("期权", "Options")}</SideItem>
       <div className="mt-3 flex h-8 items-center px-1.5">
-        <p className="min-w-0 flex-1 text-[12px] text-[#797c86]">对话</p>
+        <p className="min-w-0 flex-1 text-[12px] text-[#797c86]">{t("对话", "Chats")}</p>
         <Glyph file="sidebar-ellipsis.svg" width={16} height={16} />
       </div>
-      <p className="truncate px-1.5 text-[13px] leading-8 text-[#101423]">工具调用测试</p>
-      <p className="truncate px-1.5 text-[13px] leading-8 text-[#101423]">基金</p>
+      <p className="truncate px-1.5 text-[13px] leading-8 text-[#101423]">{t("工具调用测试", "Tool-call test")}</p>
+      <p className="truncate px-1.5 text-[13px] leading-8 text-[#101423]">{t("基金", "Funds")}</p>
       <p className="truncate px-1.5 text-[13px] leading-8 text-[#101423]">Skill Creation Assistance</p>
-      <p className="truncate px-1.5 text-[13px] leading-8 text-[#101423]">财报期权机会探索</p>
+      <p className="truncate px-1.5 text-[13px] leading-8 text-[#101423]">{t("财报期权机会探索", "Earnings options")}</p>
     </aside>
   );
 }
@@ -253,17 +268,18 @@ function SideItem({
 }
 
 function Connectors({ pressed, connected }: { pressed: boolean; connected: boolean }) {
+  const t = useT();
   return (
     <div className="flex h-full flex-col px-5 pt-4">
       <div className="flex items-center gap-2">
-        <p className="rounded-lg bg-[#f2f3f5] px-3 py-1.5 text-[15px] font-medium text-[#101423]">发现</p>
-        <p className="px-3 py-1.5 text-[15px] text-[#797c86]">我的连接器</p>
+        <p className="rounded-lg bg-[#f2f3f5] px-3 py-1.5 text-[15px] font-medium text-[#101423]">{t("发现", "Discover")}</p>
+        <p className="px-3 py-1.5 text-[15px] text-[#797c86]">{t("我的连接器", "My connectors")}</p>
         <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-[#e7f3ff] px-3 py-1.5 text-[13px] text-[#2694ff]">
           <Plus />
-          添加连接器
+          {t("添加连接器", "Add connector")}
         </span>
       </div>
-      <h3 className="mt-5 text-[16px] font-medium text-[#101423]">证券账户</h3>
+      <h3 className="mt-5 text-[16px] font-medium text-[#101423]">{t("证券账户", "Brokerage accounts")}</h3>
       <div className="mt-3 grid min-h-0 flex-1 grid-cols-2 content-start gap-3 overflow-hidden pb-4">
         {brokers.map((broker) => (
           <article key={broker.id} className="rounded-2xl border border-[#eceef2] bg-white px-4 py-3.5">
@@ -287,12 +303,12 @@ function Connectors({ pressed, connected }: { pressed: boolean; connected: boole
                   )}
                 >
                   <Plus light={broker.id === "ibkr" && pressed} />
-                  连接
+                  {t("连接", "Connect")}
                 </button>
               )}
             </div>
-            <p className="mt-3 text-[15px] font-semibold text-[#101423]">{broker.name}</p>
-            <p className="mt-1 line-clamp-2 text-[12px] leading-5 text-[#8b8e99]">{broker.body}</p>
+            <p className="mt-3 text-[15px] font-semibold text-[#101423]">{t(broker.name, brokerNameEn[broker.id])}</p>
+            <p className="mt-1 line-clamp-2 text-[12px] leading-5 text-[#8b8e99]">{t(broker.body, brokerBodyEn[broker.id])}</p>
           </article>
         ))}
       </div>
@@ -300,11 +316,32 @@ function Connectors({ pressed, connected }: { pressed: boolean; connected: boole
   );
 }
 
+const brokerNameEn = {
+  longbridge: "Longbridge",
+  ibkr: "Interactive Brokers",
+  webull: "Webull",
+  moomoo: "Moomoo",
+  tiger: "Tiger Brokers",
+  futu: "Futu",
+  rockflow: "Rockflow",
+} as const;
+
+const brokerBodyEn = {
+  longbridge: "Market data, portfolio insight, and the broker actions your Longbridge account allows.",
+  ibkr: "Research global markets, read portfolio risk, and place orders in your IBKR account (confirm them in the IBKR client).",
+  webull: "Market intelligence, portfolio data, and the trading tools your Webull account allows.",
+  moomoo: "Live quotes, screens, portfolio analysis, watchlists, and orders across global markets.",
+  tiger: "View and analyze your Tiger Brokers holdings, then place trades.",
+  futu: "Live quotes, portfolio insight, saved screens, and trading through Futu.",
+  rockflow: "Connect Rockflow to view holdings and use the trading access you've allowed.",
+} as const;
+
 function ConnectModal() {
+  const t = useT();
   return (
     <div className="absolute top-1/2 left-1/2 w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white px-5 pt-4 pb-8 shadow-[0_18px_50px_rgba(16,20,35,0.16)]">
       <div className="flex items-center justify-between">
-        <p className="text-[15px] font-medium text-[#101423]">连接盈透证券</p>
+        <p className="text-[15px] font-medium text-[#101423]">{t("连接盈透证券", "Connect Interactive Brokers")}</p>
         <span className="text-[18px] leading-none text-[#797c86]">×</span>
       </div>
       <div className="mt-8 flex justify-center">
@@ -316,7 +353,7 @@ function ConnectModal() {
       </p>
       <p className="mt-4 flex items-center justify-center gap-1.5 text-[13px] text-[#8b8e99]">
         <Spinner />
-        连接中...
+        {t("连接中...", "Connecting...")}
       </p>
     </div>
   );
@@ -374,22 +411,23 @@ function Glyph({ file, width, height }: { file: string; width: number; height: n
   return <img alt="" src={ui(file)} width={width} height={height} className="block shrink-0 max-w-none" />;
 }
 
-function DiagnosisHome({ typed, sending }: { typed: number; sending: boolean }) {
+function DiagnosisHome({ typed, sending, prompt }: { typed: number; sending: boolean; prompt: string }) {
+  const t = useT();
   return (
     <div className="flex h-full flex-col overflow-hidden px-8 pt-6">
-      <p className="text-center text-[18px] font-medium text-[#101423]">Hi, 你的投资团队已就位</p>
+      <p className="text-center text-[18px] font-medium text-[#101423]">{t("Hi, 你的投资团队已就位", "Your investment team is ready")}</p>
       <div className="mx-auto mt-4 w-full max-w-[620px]">
         <ChatComposer sending={sending} placeholder="">
           <span className="text-[#101423]">
             <MonitorChip />
-            {typed > 0 ? PROMPT.slice(0, typed) : null}
+            {typed > 0 ? prompt.slice(0, typed) : null}
           </span>
         </ChatComposer>
         <div className="mt-4 flex items-start justify-between">
           <div>
-            <p className="text-[13px] font-medium text-[#101423]">掌握期权先机</p>
+            <p className="text-[13px] font-medium text-[#101423]">{t("掌握期权先机", "Get ahead on options")}</p>
             <p className="mt-1 flex items-center gap-1 text-[12px] text-[#797c86]">
-              发现期权机会、对比策略，做出更有依据的决策。 详情
+              {t("发现期权机会、对比策略，做出更有依据的决策。 详情", "Find ideas, compare strategies, and decide with the data. Details")}
               <span className="inline-flex -rotate-90">
                 <Glyph file="chevron-detail.svg" width={10} height={10} />
               </span>
@@ -399,15 +437,15 @@ function DiagnosisHome({ typed, sending }: { typed: number; sending: boolean }) 
         </div>
         <div className="mt-3 overflow-hidden rounded-xl border border-[#f1f1f1] bg-white">
           <div className="flex items-center gap-2 border-b border-[#f1f1f1] px-3">
-            <span className="py-2 text-[13px] font-medium text-[#101423]">期权机会</span>
-            <span className="px-2.5 py-2 text-[13px] text-[#797c86]">收益增强</span>
-            <span className="px-2.5 py-2 text-[13px] text-[#797c86]">下行保护</span>
+            <span className="py-2 text-[13px] font-medium text-[#101423]">{t("期权机会", "Ideas")}</span>
+            <span className="px-2.5 py-2 text-[13px] text-[#797c86]">{t("收益增强", "Income")}</span>
+            <span className="px-2.5 py-2 text-[13px] text-[#797c86]">{t("下行保护", "Protection")}</span>
           </div>
-          <HomeRow icon="icon-0dte.svg" title="扫描 0DTE 期权" body="发现潜在的当日期权机会。" />
+          <HomeRow icon="icon-0dte.svg" title={t("扫描 0DTE 期权", "Scan 0DTE options")} body={t("发现潜在的当日期权机会。", "Surface same-day options ideas.")} />
           <div className="mx-3 h-px bg-[#f4f5f7]" />
-          <HomeRow icon="icon-activity.svg" title="市场大单期权异动信号" body="发现异常成交量和可能重要的交易。" />
+          <HomeRow icon="icon-activity.svg" title={t("市场大单期权异动信号", "Unusual options flow")} body={t("发现异常成交量和可能重要的交易。", "Large prints and unusual volume.")} />
           <div className="mx-3 h-px bg-[#f4f5f7]" />
-          <HomeRow icon="icon-file.svg" title="财报期权分析" body="探索即将发布财报的公司周边的期权机会。" />
+          <HomeRow icon="icon-file.svg" title={t("财报期权分析", "Earnings options")} body={t("探索即将发布财报的公司周边的期权机会。", "Options around upcoming earnings.")} />
         </div>
       </div>
     </div>
@@ -437,6 +475,9 @@ function DiagnosisThread({
   doneChars,
   draft,
   sending,
+  prompt,
+  orderText,
+  doneText,
 }: {
   toolCount: number;
   replyStep: number;
@@ -448,7 +489,11 @@ function DiagnosisThread({
   doneChars: number;
   draft: string;
   sending: boolean;
+  prompt: string;
+  orderText: string;
+  doneText: string;
 }) {
+  const t = useT();
   const scroller = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -469,7 +514,7 @@ function DiagnosisThread({
         <div className="px-6 pt-5">
         <UserBubble>
           <MonitorChip />
-          {PROMPT}
+          {prompt}
         </UserBubble>
         <div data-anchor="tools" className="mt-5">
           {toolRows.map((row, index) => (
@@ -477,23 +522,23 @@ function DiagnosisThread({
               key={`${row.label}-${index}`}
               on={index < toolCount}
               icon={<ToolGlyph kind={row.kind} />}
-              label={row.label}
-              detail={row.detail}
+              label={t(row.label, row.labelEn)}
+              detail={t(row.detail, row.detailEn)}
             />
           ))}
         </div>
         <ReplyBody step={replyStep} />
         {order ? (
           <div data-anchor="order" className="mt-4">
-            <UserBubble>{ORDER}</UserBubble>
+            <UserBubble>{orderText}</UserBubble>
             <div className="mt-5">
               {orderRows.map((row, index) => (
                 <AgentRow
                   key={`order-${index}`}
                   on={index < orderTools}
                   icon={<ToolGlyph kind={row.kind} />}
-                  label={row.label}
-                  detail={row.detail}
+                  label={t(row.label, row.labelEn)}
+                  detail={t(row.detail, row.detailEn)}
                 />
               ))}
             </div>
@@ -501,7 +546,7 @@ function DiagnosisThread({
         ) : null}
         {doneChars > 0 ? (
           <p data-anchor="done" className="mt-2 text-[14px] leading-7 text-[#3c404c]">
-            {done ? DONE_TEXT : DONE_TEXT.slice(0, doneChars)}
+            {done ? doneText : doneText.slice(0, doneChars)}
           </p>
         ) : null}
         </div>
@@ -516,7 +561,68 @@ function DiagnosisThread({
   );
 }
 
+function ReplyBodyEn({ step }: { step: number }) {
+  return (
+    <div data-anchor="advice" className="text-[14px] leading-7 text-[#3c404c]">
+      <StreamBlock show={step >= 1}>
+        <p className="mt-2">
+          On this snapshot, <b className="font-semibold text-[#101423]">AAPL is the largest single holding</b>. The account also holds several large growth names, plus JNJ, PEP, and SCHD. That concentration is worth checking. It does not mean I have verified historical correlation or risk contribution.
+        </p>
+      </StreamBlock>
+      <StreamBlock show={step >= 2}>
+        <div>
+          <p className="mt-4 font-semibold text-[#101423]">A first pass at adjustments</p>
+          <ul className="mt-2 list-disc space-y-2 pl-5">
+            <li>
+              <b className="font-semibold text-[#101423]">Stop adding to the largest single holding.</b> Use later cash to reduce that concentration, rather than trading on this unfinished read.
+            </li>
+            <li>
+              <b className="font-semibold text-[#101423]">If the goal is still steady dividend income,</b> put new money into diversified income assets first, and keep checking whether the dividend is covered. Until correlation is done, be careful stacking more of the same growth risk.
+            </li>
+          </ul>
+        </div>
+      </StreamBlock>
+      <StreamBlock show={step >= 3}>
+        <div>
+          <p className="mt-4 font-semibold text-[#101423]">A temporary buy idea</p>
+          <ul className="mt-2 list-disc space-y-2 pl-5">
+            <li>
+              <b className="font-semibold text-[#101423]">For now, prefer a diversified dividend core for new money,</b> instead of adding to the largest position or to more growth stocks. That fits an income goal. It is not a risk-model allocation.
+            </li>
+            <li>
+              <b className="font-semibold text-[#101423]">If you still want a single stock,</b> don't pick one from this incomplete diagnosis. Compare dividend cover, cash flow, and valuation before adding to JNJ or PEP.
+            </li>
+            <li>
+              <b className="font-semibold text-[#101423]">I would not name a dollar amount, share count, or target weight yet.</b> Wait until correlation, drawdown, volatility, and risk contribution can be calculated.
+            </li>
+          </ul>
+          <p className="mt-4 text-[13px] text-[#4c5160]">Past risk is a look back, not a forecast of future drawdowns or returns. None of this is an order.</p>
+        </div>
+      </StreamBlock>
+      <StreamBlock show={step >= 4}>
+        <div>
+          <p className="mt-4">
+            <b className="font-semibold text-[#101423]">Names: scale into JNJ. Hold PEP, and don't add.</b> That is a first read of dividend cash flow, not the correlation or risk-contribution work. Those numbers could not be calculated reliably.
+          </p>
+          <ul className="mt-3 list-disc space-y-2 pl-5">
+            <li>
+              <b className="font-semibold text-[#101423]">Prefer JNJ:</b> FY2025 dividends were about 62.9% of free cash flow, more room than PEP. FY2025 free cash flow was down 0.7% year over year, so I would buy in pieces. Last price US$256.48 at 16:10 ET on October 8, 2026. The account already holds 20 shares.
+            </li>
+            <li>
+              <b className="font-semibold text-[#101423]">Don't add to PEP:</b> FY2025 free cash flow rose 6.7%, but dividends already used 99.6% of it. You hold 31 shares. I would hold and watch coverage, not buy more for income. Last price US$128.34 at 16:00 ET on October 8, 2026.
+            </li>
+          </ul>
+          <p className="mt-3">
+            <b className="font-semibold text-[#101423]">How to do it:</b> if this is a 3–5 year income allocation, split new JNJ buys over several tickets. These prices are references, not targets. Pause if JNJ free cash flow keeps weakening or dividend cover gets worse. Without a reliable risk-contribution result, I won't give an exact share count or weight.
+          </p>
+        </div>
+      </StreamBlock>
+    </div>
+  );
+}
+
 function ReplyBody({ step }: { step: number }) {
+  if (useLocale() === "en") return <ReplyBodyEn step={step} />;
   return (
     <div data-anchor="advice" className="text-[14px] leading-7 text-[#3c404c]">
       <StreamBlock show={step >= 1}>
@@ -587,28 +693,32 @@ function ReplyBody({ step }: { step: number }) {
 }
 
 function ConfirmCard({ chosen }: { chosen: boolean }) {
+  const t = useT();
   return (
     <div className="absolute inset-x-0 bottom-0 z-10 px-5 pb-4">
       <div className="rounded-2xl border border-[#eceef2] bg-white px-4 pt-3.5 pb-3 shadow-[0_16px_40px_rgba(16,20,35,0.12)]">
         <div className="flex items-start justify-between gap-3">
           <p className="text-[13.5px] leading-6 text-[#101423]">
-            请确认下单方式。当前账户购买力为 $64,891.43；JNJ 最新可用参考价是 $256.48（2026-10-08 16:10 美东），20股估算金额为 $5,129.60，实际成交价可能不同。是否提交以下模拟订单？
+            {t(
+              "请确认下单方式。当前账户购买力为 $64,891.43；JNJ 最新可用参考价是 $256.48（2026-10-08 16:10 美东），20股估算金额为 $5,129.60，实际成交价可能不同。是否提交以下模拟订单？",
+              "Confirm the order type. Buying power is $64,891.43. The latest JNJ reference price is $256.48 (2026-10-08 16:10 ET), so 20 shares are about $5,129.60. The fill can differ. Submit this paper order?"
+            )}
           </p>
           <span className="text-[16px] leading-none text-[#b0b3bd]">×</span>
         </div>
         <div className="mt-2">
-          <Choice letter="A" selected={chosen} label="确认：市价买入20股JNJ（GTC）" />
-          <Choice letter="B" label="改为限价单（请填写限价）" />
-          <Choice letter="C" label="暂不下单" />
+          <Choice letter="A" selected={chosen} label={t("确认：市价买入20股JNJ（GTC）", "Confirm: market buy 20 JNJ (GTC)")} />
+          <Choice letter="B" label={t("改为限价单（请填写限价）", "Switch to a limit order (enter a price)")} />
+          <Choice letter="C" label={t("暂不下单", "Don't place an order")} />
         </div>
         <div className="mt-2 flex items-center justify-between text-[12px] text-[#797c86]">
           <span className="inline-flex items-center gap-1.5">
             <svg width="13" height="13" viewBox="0 0 13 13" aria-hidden>
               <path d="M2 9.2 8.8 2.4a1 1 0 0 1 1.4 0l.4.4a1 1 0 0 1 0 1.4L3.8 11H2V9.2Z" fill="none" stroke="currentColor" strokeWidth="1.1" />
             </svg>
-            确认市价单，或提供限价单价格
+            {t("确认市价单，或提供限价单价格", "Confirm the market order, or give a limit price")}
           </span>
-          <span className="rounded-full border border-[#eceef2] px-3 py-1">跳过</span>
+          <span className="rounded-full border border-[#eceef2] px-3 py-1">{t("跳过", "Skip")}</span>
         </div>
       </div>
     </div>
@@ -686,23 +796,24 @@ function ScaledCanvas({
   );
 }
 
-function useClock(reduced: boolean) {
+function useClock(reduced: boolean, prompt: string, order: string, done: string) {
   const [snap, setSnap] = useState({ phase: "list" as Phase, typed: 0, tools: 0, replyStep: 0, orderTyped: 0, orderTools: 0, doneChars: 0 });
 
   useEffect(() => {
     if (reduced) return;
+    const mark = clockFor(prompt, order, done);
     let start = performance.now();
     let frame = 0;
     let prev = "";
     const tick = (time: number) => {
-      const now = ((time - start) * demoSpeed) % LOOP;
-      const phase = phaseAt(now);
-      const typed = now < TYPE_START ? 0 : Math.min(PROMPT.length, Math.floor((Math.min(now, TYPE_END) - TYPE_START) / CHAR_MS));
-      const tools = now < TOOLS_AT ? 0 : Math.min(toolRows.length, Math.floor((now - TOOLS_AT) / TOOL_STEP) + 1);
-      const replyStep = now < ADVICE_AT ? 0 : Math.min(REPLY_STEPS, Math.floor((now - ADVICE_AT) / REPLY_BEAT) + 1);
-      const orderTyped = now < ORDER_START ? 0 : Math.min(ORDER.length, Math.floor((Math.min(now, ORDER_END) - ORDER_START) / ORDER_CHAR));
-      const orderTools = now < ORDER_TOOLS_AT ? 0 : Math.min(orderRows.length, Math.floor((now - ORDER_TOOLS_AT) / TOOL_STEP) + 1);
-      const doneChars = now < DONE_AT ? 0 : DONE_TEXT.length;
+      const now = ((time - start) * demoSpeed) % mark.LOOP;
+      const phase = phaseAt(now, mark);
+      const typed = now < TYPE_START ? 0 : Math.min(prompt.length, Math.floor((Math.min(now, mark.TYPE_END) - TYPE_START) / CHAR_MS));
+      const tools = now < mark.TOOLS_AT ? 0 : Math.min(toolRows.length, Math.floor((now - mark.TOOLS_AT) / TOOL_STEP) + 1);
+      const replyStep = now < mark.ADVICE_AT ? 0 : Math.min(REPLY_STEPS, Math.floor((now - mark.ADVICE_AT) / REPLY_BEAT) + 1);
+      const orderTyped = now < mark.ORDER_START ? 0 : Math.min(order.length, Math.floor((Math.min(now, mark.ORDER_END) - mark.ORDER_START) / ORDER_CHAR));
+      const orderTools = now < mark.ORDER_TOOLS_AT ? 0 : Math.min(orderRows.length, Math.floor((now - mark.ORDER_TOOLS_AT) / TOOL_STEP) + 1);
+      const doneChars = now < mark.DONE_AT ? 0 : done.length;
       const key = `${phase}:${typed}:${tools}:${replyStep}:${orderTyped}:${orderTools}:${doneChars}`;
       if (key !== prev) {
         prev = key;
@@ -712,7 +823,7 @@ function useClock(reduced: boolean) {
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [reduced]);
+  }, [reduced, prompt, order, done]);
 
   return snap;
 }
