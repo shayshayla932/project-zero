@@ -72,10 +72,36 @@ function EmbedFit({ children }: { children: ReactNode }) {
   const [scale, setScale] = useState(1);
 
   useLayoutEffect(() => {
-    document.documentElement.classList.add("module-page");
+    const root = document.documentElement;
+    const body = document.body;
+    const site = document.getElementById("site");
+    root.classList.add("module-page");
+    root.style.background = "transparent";
+    root.style.overflow = "hidden";
+    body.style.background = "transparent";
+    body.style.overflow = "hidden";
+    if (site) {
+      site.style.background = "transparent";
+      site.style.overflow = "hidden";
+      site.style.height = "100%";
+    }
+
+    const clearChrome = () => {
+      root.classList.remove("module-page");
+      root.style.background = "";
+      root.style.overflow = "";
+      body.style.background = "";
+      body.style.overflow = "";
+      if (site) {
+        site.style.background = "";
+        site.style.overflow = "";
+        site.style.height = "";
+      }
+    };
+
     const frameEl = frame.current;
     const cardEl = card.current;
-    if (!frameEl || !cardEl) return;
+    if (!frameEl || !cardEl) return clearChrome;
 
     const fit = () => {
       const cardHeight = cardEl.offsetHeight;
@@ -90,7 +116,7 @@ function EmbedFit({ children }: { children: ReactNode }) {
     observer.observe(cardEl);
     return () => {
       observer.disconnect();
-      document.documentElement.classList.remove("module-page");
+      clearChrome();
     };
   }, []);
 

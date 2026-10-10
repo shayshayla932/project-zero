@@ -1,8 +1,7 @@
 import { addPropertyControls, ControlType } from "framer"
 
 /**
- * English "Real-time" module: copy plus the looping product animation.
- * Framer can only embed https. The animation appears after this version is on GitHub Pages.
+ * English "Real-time" module. Animation plays from the published page.
  *
  * @framerIntrinsicWidth 1360
  * @framerIntrinsicHeight 780
@@ -10,7 +9,17 @@ import { addPropertyControls, ControlType } from "framer"
  * @framerSupportedLayoutHeight any
  */
 export default function RealtimeModule(props) {
-    return <ModuleFrame title="Real-time" module="realtime" page={props.page} style={props.style} />
+    const entered = props.page || "https://shayshayla932.github.io/project-zero"
+    const src = /realtime\.html(?:$|\?)/.test(entered)
+        ? entered
+        : `${entered.replace(/\/$/, "")}/realtime.html`
+    return (
+        <iframe
+            title="Real-time"
+            src={src}
+            style={{ border: "none", background: "transparent", width: "100%", height: "100%", ...props.style }}
+        />
+    )
 }
 
 addPropertyControls(RealtimeModule, {
@@ -20,21 +29,3 @@ addPropertyControls(RealtimeModule, {
         defaultValue: "https://shayshayla932.github.io/project-zero",
     },
 })
-
-function ModuleFrame({ title, module, page, style }) {
-    const base = page || "https://shayshayla932.github.io/project-zero"
-    const src = `${base.replace(/\/$/, "")}/${module}.html`
-    return (
-        <iframe
-            title={title}
-            src={src}
-            style={{
-                border: "none",
-                background: "transparent",
-                width: "100%",
-                height: "100%",
-                ...style,
-            }}
-        />
-    )
-}
