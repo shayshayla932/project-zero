@@ -23,7 +23,7 @@ addPropertyControls(RealtimeModule, {
 
 function ModuleFrame({ title, module, page, style }) {
     const base = page || "https://shayshayla932.github.io/project-zero"
-    const src = `${base.replace(/\/$/, "")}/?module=${module}&lang=en`
+    const src = `${base.replace(/\/$/, "")}/${module}.html`
     return (
         <iframe
             title={title}

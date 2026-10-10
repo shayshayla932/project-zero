@@ -13,7 +13,7 @@ export default function ProactiveModule(props) {
     return (
         <iframe
             title="Proactive"
-            src={`${base}/?module=proactive&lang=en`}
+            src={`${base}/proactive.html`}
             style={{ border: "none", background: "#ffffff", width: "100%", height: "100%", ...props.style }}
         />
     )

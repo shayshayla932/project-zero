@@ -13,7 +13,7 @@ export default function PersonalizedModule(props) {
     return (
         <iframe
             title="Personalized"
-            src={`${base}/?module=personalized&lang=en`}
+            src={`${base}/personalized.html`}
             style={{ border: "none", background: "#ffffff", width: "100%", height: "100%", ...props.style }}
         />
     )

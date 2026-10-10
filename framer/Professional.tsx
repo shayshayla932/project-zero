@@ -13,7 +13,7 @@ export default function ProfessionalModule(props) {
     return (
         <iframe
             title="Professional"
-            src={`${base}/?module=professional&lang=en`}
+            src={`${base}/professional.html`}
             style={{ border: "none", background: "#ffffff", width: "100%", height: "100%", ...props.style }}
         />
     )
